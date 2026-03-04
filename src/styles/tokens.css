@@ -1,0 +1,160 @@
+/* ============================================================
+   Nuqlei Design Tokens — CSS Custom Properties
+   Generated from Figma variable collections (Light Mode)
+   ============================================================ */
+
+:root {
+  /* ---- Color Palette: sky (Brand) ---- */
+  --skyBrand-50: #f0f9ff;
+  --skyBrand-100: #dff2fe;
+  --skyBrand-200: #b8e6fd;
+  --skyBrand-300: #7ad3fb;
+  --skyBrand-400: #35bdf7;
+  --skyBrand-500: #00a6f4;
+  --skyBrand-600: #0084d1;
+  --skyBrand-700: #0068a8;
+  --skyBrand-800: #00528a;
+  --skyBrand-900: #044471;
+  --skyBrand-950: #052f4a;
+
+  /* ---- Color Palette: neutral ---- */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a1a1a1;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-900: #171717;
+  --neutral-950: #0a0a0a;
+
+  /* ---- Color Palette: slate ---- */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e2939;
+  --slate-900: #0f172b;
+  --slate-950: #020617;
+
+  /* ---- Color Palette: gray ---- */
+  --gray-50:  #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1e2939;
+  --gray-900: #111827;
+  --gray-950: #030712;
+
+  /* ---- Color Palette: rose ---- */
+  --rose-50:  #fff1f2;
+  --rose-100: #ffe4e6;
+  --rose-500: #f43f5e;
+  --rose-600: #e11d48;
+
+  /* ---- Color Palette: teal ---- */
+  --teal-50:  #f0fdfa;
+  --teal-100: #ccfbf1;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+
+  /* ---- Color Palette: red ---- */
+  --red-50:  #fef2f2;
+  --red-100: #fee2e2;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+
+  /* ---- Semantic Tokens: Backgrounds ---- */
+  --bg-neutral-white:   #fefefe;
+  --bg-neutral-black:   var(--neutral-800);
+  --bg-neutral-default: var(--neutral-100);
+  --bg-neutral-hover:   var(--neutral-200);
+  --bg-neutral-pressed: var(--neutral-300);
+
+  --bg-primary-container: var(--skyBrand-50);
+  --bg-primary-default:   var(--skyBrand-500);
+  --bg-primary-hover:     var(--skyBrand-600);
+  --bg-primary-pressed:   var(--skyBrand-800);
+  --bg-primary-disabled:  var(--skyBrand-100);
+
+  --bg-brand-default:     var(--skyBrand-500);
+  --bg-brand-hover:       var(--skyBrand-600);
+  --bg-brand-pressed:     var(--skyBrand-800);
+
+  --bg-danger-default:    var(--red-500);
+  --bg-danger-hover:      var(--red-600);
+
+  /* ---- Semantic Tokens: Text ---- */
+  --text-neutral-white:     #fefefe;
+  --text-neutral-default:   var(--neutral-800);
+  --text-neutral-secondary: var(--neutral-500);
+  --text-neutral-disabled:  var(--neutral-300);
+
+  --text-primary-default:   var(--skyBrand-500);
+  --text-primary-hover:     var(--skyBrand-600);
+  --text-primary-pressed:   var(--skyBrand-800);
+
+  /* ---- Semantic Tokens: Outlines ---- */
+  --outline-neutral-default:           var(--neutral-400);
+  --outline-neutral-default-secondary: var(--neutral-200);
+  --outline-brand-default:             var(--skyBrand-600);
+  --outline-neutral-black:             var(--neutral-800);
+  --outline-neutral-focused:           var(--skyBrand-800);
+
+  /* ---- Typography ---- */
+  --font-family:   'Roboto', sans-serif;
+  --font-inter:    'Inter', sans-serif;
+
+  --text-xs:  12px;
+  --text-sm:  14px;
+  --text-md:  16px;
+  --text-lg:  18px;
+  --text-xl:  20px;
+
+  --display-xs: 24px;
+  --display-sm: 30px;
+  --display-md: 36px;
+  --display-lg: 48px;
+  --display-xl: 60px;
+
+  --line-height-text-xl: 30px;
+
+  /* ---- Border Radius ---- */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-3xl:  24px;
+  --radius-full: 9999px;
+
+  /* ---- Spacing ---- */
+  --spacing-1:   4px;
+  --spacing-2:   8px;
+  --spacing-3:   12px;
+  --spacing-4:   16px;
+  --spacing-5:   20px;
+  --spacing-6:   24px;
+  --spacing-8:   32px;
+  --spacing-10:  40px;
+  --spacing-12:  48px;
+  --spacing-14:  56px;
+  --spacing-16:  64px;
+  --spacing-20:  80px;
+  --spacing-24:  96px;
+  --spacing-25:  100px;
+
+  /* ---- Shadows ---- */
+  --shadow-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px -1px rgba(16, 24, 40, 0.06);
+}

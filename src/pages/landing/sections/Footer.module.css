@@ -1,0 +1,138 @@
+.footer {
+  width: 100%;
+  background-color: var(--slate-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px var(--spacing-25);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 968px;
+}
+
+/* Top row */
+.topRow {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.brand {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 4.47px;
+  overflow: hidden;
+}
+
+.logoSymbol {
+  height: 24px;
+  width: auto;
+}
+
+.logoWordmark {
+  height: 19.88px;
+  width: auto;
+}
+
+.brandDesc {
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-neutral-secondary);
+  line-height: normal;
+}
+
+/* Link columns */
+.linkCols {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  gap: 30px;
+}
+
+.linkCol {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.colTitle {
+  font-family: var(--font-family);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: normal;
+}
+
+.colLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colLinks a {
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-neutral-secondary);
+  line-height: normal;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.colLinks a:hover {
+  color: #ffffff;
+}
+
+/* Bottom row */
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottomLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.symbolSmall {
+  height: 24px;
+  width: auto;
+}
+
+.copyright {
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-neutral-white);
+  white-space: nowrap;
+}
+
+.producer {
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-neutral-white);
+  white-space: nowrap;
+}
+
+.producer span {
+  color: #fefefe;
+}
