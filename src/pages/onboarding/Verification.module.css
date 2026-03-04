@@ -1,0 +1,129 @@
+.page {
+  min-height: 100vh;
+  background: var(--slate-50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  margin-bottom: 56px;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--neutral-800);
+  letter-spacing: -0.5px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid var(--neutral-200);
+  padding: 56px 48px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.iconWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.iconWrap.pending {
+  background: #FFF7E6;
+}
+
+.iconWrap.success {
+  background: #BAFAF2;
+}
+
+.iconWrap.failed {
+  background: var(--rose-50);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--neutral-800);
+  letter-spacing: -0.4px;
+  margin-bottom: 12px;
+}
+
+.message {
+  font-size: 15px;
+  color: var(--neutral-500);
+  line-height: 1.6;
+  max-width: 340px;
+  margin-bottom: 32px;
+}
+
+.detail {
+  font-size: 13px;
+  color: var(--neutral-400);
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 12px;
+  background: var(--skyBrand-500);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.primaryBtn:hover {
+  background: var(--skyBrand-600);
+}
+
+.secondaryLink {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--neutral-500);
+  text-decoration: none;
+}
+
+.secondaryLink:hover {
+  color: var(--neutral-700);
+  text-decoration: underline;
+}
+
+@media (max-width: 540px) {
+  .card {
+    padding: 40px 24px;
+  }
+}

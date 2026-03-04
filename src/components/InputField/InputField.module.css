@@ -1,0 +1,98 @@
+/* InputField component styles */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--neutral-800);
+  line-height: 1.4;
+}
+
+.required {
+  color: var(--rose-500);
+  margin-left: 2px;
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--neutral-800);
+  background: #fff;
+  border: 1.5px solid var(--neutral-200);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.input::placeholder {
+  color: var(--neutral-400);
+}
+
+.input:focus {
+  border-color: var(--skyBrand-500);
+  box-shadow: 0 0 0 3px rgba(0, 166, 244, 0.12);
+}
+
+.input.hasError {
+  border-color: var(--rose-500);
+}
+
+.input.hasError:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.input.hasPrefix {
+  padding-left: 40px;
+}
+
+.input.hasSuffix {
+  padding-right: 40px;
+}
+
+.prefixIcon,
+.suffixIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neutral-400);
+  pointer-events: none;
+}
+
+.prefixIcon {
+  left: 12px;
+}
+
+.suffixIcon {
+  right: 12px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.helper {
+  font-size: 13px;
+  color: var(--neutral-500);
+  line-height: 1.4;
+}
+
+.error {
+  font-size: 13px;
+  color: var(--rose-500);
+  line-height: 1.4;
+}

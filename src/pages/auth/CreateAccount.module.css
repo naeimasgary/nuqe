@@ -1,0 +1,188 @@
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--neutral-800);
+  letter-spacing: -0.4px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--neutral-500);
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Role cards ── */
+.roleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.roleCard {
+  position: relative;
+  border: 2px solid var(--neutral-200);
+  border-radius: 12px;
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+  user-select: none;
+}
+
+.roleCard:hover {
+  border-color: var(--skyBrand-300);
+  background: var(--skyBrand-50);
+}
+
+.roleCard.selected {
+  border-color: var(--skyBrand-500);
+  background: #f0f9ff;
+}
+
+.roleCard input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.roleCardIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--neutral-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neutral-600);
+  transition: background 0.15s, color 0.15s;
+}
+
+.roleCard.selected .roleCardIcon {
+  background: rgba(0, 166, 244, 0.12);
+  color: var(--skyBrand-500);
+}
+
+.roleCardLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--neutral-800);
+}
+
+.roleCardDesc {
+  font-size: 12px;
+  color: var(--neutral-500);
+  line-height: 1.4;
+}
+
+.roleCheck {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--neutral-300);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.roleCard.selected .roleCheck {
+  border-color: var(--skyBrand-500);
+  background: var(--skyBrand-500);
+}
+
+/* ── Password strength ── */
+.passwordStrength {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.strengthBar {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--neutral-200);
+  transition: background 0.2s;
+}
+
+.strengthBar.active.weak { background: var(--rose-400); }
+.strengthBar.active.medium { background: var(--amber-400, #f59e0b); }
+.strengthBar.active.strong { background: #00CEB6; }
+
+/* ── Submit ── */
+.submitBtn {
+  width: 100%;
+  padding: 12px;
+  background: var(--skyBrand-500);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+  margin-top: 4px;
+}
+
+.submitBtn:hover {
+  background: var(--skyBrand-600);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--neutral-500);
+}
+
+.link {
+  color: var(--skyBrand-500);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.errorBanner {
+  background: var(--rose-50);
+  border: 1px solid var(--rose-200);
+  color: var(--rose-700, #be123c);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.terms {
+  font-size: 13px;
+  color: var(--neutral-500);
+  text-align: center;
+  line-height: 1.5;
+}

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { SiteHeader } from "../../components/SiteHeader";
 import { Hero } from "./sections/Hero";
 import { Features } from "./sections/Features";
@@ -8,9 +9,14 @@ import { FAQ } from "./sections/FAQ";
 import { Footer } from "./sections/Footer";
 
 export function LandingPage() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ minWidth: "320px" }}>
-      <SiteHeader />
+      <SiteHeader
+        onPrimaryCtaClick={() => navigate("/register")}
+        onSecondaryCtaClick={() => navigate("/sign-in")}
+      />
       <main>
         <Hero />
         <Features />
