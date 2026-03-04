@@ -1,60 +1,35 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthLayout } from "../../components/AuthLayout";
 import { InputField } from "../../components/InputField";
 import styles from "./CreateAccount.module.css";
 
-type Role = "buyer" | "seller";
+// Figma asset URLs (valid for 7 days)
+const LOGO_SYMBOL_LG   = "https://www.figma.com/api/mcp/asset/ca77d3ac-a1a7-48c6-aecd-86a334b9a2c3";
+const LOGO_WORDMARK_LG = "https://www.figma.com/api/mcp/asset/ecdfb56c-3b1c-4411-9546-7d5b9f456c79";
+const LOGO_SYMBOL_SM   = "https://www.figma.com/api/mcp/asset/f4e72d8c-73f7-43c0-9f02-108e7958304b";
+const HERO_BG          = "https://www.figma.com/api/mcp/asset/541f8515-702d-4085-b807-e8eee9261fe2";
 
-const ROLES: { id: Role; label: string; desc: string; icon: JSX.Element }[] = [
-  {
-    id: "buyer",
-    label: "Buyer",
-    desc: "Source vendors & manage projects",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-      </svg>
-    ),
-  },
-  {
-    id: "seller",
-    label: "Seller",
-    desc: "List services & receive quote requests",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-      </svg>
-    ),
-  },
+const ROLES = [
+  { value: "buyer",    label: "Buyer" },
+  { value: "seller",   label: "Seller" },
+  { value: "both",     label: "Both Buyer & Seller" },
 ];
-
-function getPasswordStrength(pw: string): { level: number; label: string } {
-  if (pw.length === 0) return { level: 0, label: "" };
-  if (pw.length < 6) return { level: 1, label: "weak" };
-  if (pw.length < 10 || !/[^a-zA-Z0-9]/.test(pw)) return { level: 2, label: "medium" };
-  return { level: 3, label: "strong" };
-}
 
 export function CreateAccount() {
   const navigate = useNavigate();
-  const [role, setRole] = useState<Role>("buyer");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const strength = getPasswordStrength(password);
+  const [isBuyer, setIsBuyer]   = useState(true);
+  const [isSeller, setIsSeller] = useState(false);
+  const [email, setEmail]       = useState("");
+  const [role, setRole]         = useState("");
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
-
-    if (!name.trim()) { setError("Please enter your full name."); return; }
-    if (!email.trim()) { setError("Please enter your email address."); return; }
-    if (password.length < 8) { setError("Password must be at least 8 characters."); return; }
+    if (!isBuyer && !isSeller) { setError("Please select at least one role."); return; }
+    if (!email.trim())          { setError("Please enter your email address."); return; }
+    if (!role)                  { setError("Please select your role."); return; }
 
     setLoading(true);
     setTimeout(() => {
@@ -63,115 +38,121 @@ export function CreateAccount() {
     }, 1000);
   }
 
-  const heroTitle = role === "buyer"
-    ? <><span>Apply</span> to start creating Projects</>
-    : <>List your services and <span>grow</span> your business</>;
-
-  const heroDesc = role === "buyer"
-    ? "Nuqlei is a vetted B2B marketplace. Buyers require admin approval before the platform is fully unlocked."
-    : "Connect with verified industrial buyers sourcing instrumentation and automation services.";
-
   return (
-    <AuthLayout eyebrow={`Joining as a ${role}`} title={heroTitle} description={heroDesc}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Create your account</h2>
-        <p className={styles.subtitle}>
-          Already have an account?{" "}
-          <Link to="/sign-in" className={styles.link}>Sign in</Link>
-        </p>
-      </div>
+    <div className={styles.page}>
+      {/* ── Left: dark hero ── */}
+      <div className={styles.hero}>
+        <img src={HERO_BG} alt="" className={styles.heroBg} aria-hidden="true" />
 
-      <form className={styles.form} onSubmit={handleSubmit} noValidate>
-        {error && <div className={styles.errorBanner}>{error}</div>}
+        <div className={styles.heroContent}>
+          <Link to="/" className={styles.heroLogo}>
+            <img src={LOGO_SYMBOL_LG}   alt=""       className={styles.heroLogoSymbol} />
+            <img src={LOGO_WORDMARK_LG} alt="Nuqlei" className={styles.heroLogoWordmark} />
+          </Link>
 
-        {/* Role selector */}
-        <div>
-          <div className={styles.roleGrid}>
-            {ROLES.map((r) => (
-              <label
-                key={r.id}
-                className={[styles.roleCard, role === r.id ? styles.selected : ""].join(" ")}
-              >
-                <input
-                  type="radio"
-                  name="role"
-                  value={r.id}
-                  checked={role === r.id}
-                  onChange={() => setRole(r.id)}
-                />
-                <div className={styles.roleCardIcon}>{r.icon}</div>
-                <div className={styles.roleCardLabel}>{r.label}</div>
-                <div className={styles.roleCardDesc}>{r.desc}</div>
-                <div className={styles.roleCheck}>
-                  {role === r.id && (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M2 5l2.5 2.5L8 3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                </div>
-              </label>
-            ))}
+          <div className={styles.heroCopy}>
+            <div className={styles.heroTextBlock}>
+              <h1 className={styles.heroTitle}>
+                Apply to start<br />
+                creating Projects for<br />
+                sourcing or selling
+              </h1>
+              <p className={styles.heroSubtitle}>
+                Buyer accounts require approval. You'll typically receive an email within 24–48 hrs once your application is reviewed.
+              </p>
+            </div>
+            <div>
+              <Link to="/" className={styles.heroCta}>Learn More</Link>
+            </div>
           </div>
         </div>
+      </div>
 
-        <InputField
-          label="Full name"
-          type="text"
-          placeholder="Jane Smith"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          autoComplete="name"
-        />
+      {/* ── Right: white form panel ── */}
+      <div className={styles.formSide}>
+        <div className={styles.formInner}>
+          {/* Small logo mark */}
+          <img src={LOGO_SYMBOL_SM} alt="Nuqlei" className={styles.logoMark} />
 
-        <InputField
-          label="Work email"
-          type="email"
-          placeholder="you@company.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          autoComplete="email"
-        />
+          {/* Title */}
+          <div className={styles.titleBlock}>
+            <h2 className={styles.pageTitle}>Join</h2>
+            <p className={styles.pageSubtitle}>The Nuqlei Network</p>
+          </div>
 
-        <div>
-          <InputField
-            label="Password"
-            type="password"
-            placeholder="Min. 8 characters"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="new-password"
-          />
-          {password.length > 0 && (
-            <div className={styles.passwordStrength}>
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className={[
-                    styles.strengthBar,
-                    i <= strength.level ? styles.active : "",
-                    i <= strength.level ? styles[strength.label as keyof typeof styles] || "" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                />
-              ))}
+          {/* Buyer / Seller checkboxes */}
+          <div className={styles.checkboxRow}>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={isBuyer}
+                onChange={(e) => setIsBuyer(e.target.checked)}
+              />
+              I am a Buyer
+            </label>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={isSeller}
+                onChange={(e) => setIsSeller(e.target.checked)}
+              />
+              I am a Seller
+            </label>
+          </div>
+
+          {/* Fields */}
+          <form onSubmit={handleSubmit} noValidate>
+            {error && <div className={styles.errorBanner} style={{ marginBottom: 16 }}>{error}</div>}
+
+            <div className={styles.fields}>
+              <InputField
+                label="Email"
+                type="email"
+                placeholder="joe@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                helperText="Please use a company email. No @gmail.com"
+              />
+
+              {/* Role dropdown — pill-shaped, matches Figma */}
+              <div>
+                <label htmlFor="role-select" className={styles.selectLabel}>Your Role</label>
+                <div className={styles.selectWrap}>
+                  <select
+                    id="role-select"
+                    className={styles.select}
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="" disabled>Select your role</option>
+                    {ROLES.map((r) => (
+                      <option key={r.value} value={r.value}>{r.label}</option>
+                    ))}
+                  </select>
+                  <span className={styles.selectChevron}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M5 7.5l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
             </div>
-          )}
+
+            <div className={styles.actions} style={{ marginTop: 24 }}>
+              <button type="submit" className={styles.submitBtn} disabled={loading}>
+                {loading ? "Applying…" : "Apply"}
+              </button>
+
+              <div className={styles.footerRow}>
+                <span className={styles.footerText}>Already have an account?</span>
+                <Link to="/sign-in" className={styles.footerLink}>Sign In</Link>
+              </div>
+            </div>
+          </form>
         </div>
-
-        <button type="submit" className={styles.submitBtn} disabled={loading}>
-          {loading ? "Creating account…" : "Create account"}
-        </button>
-
-        <p className={styles.terms}>
-          By creating an account, you agree to our{" "}
-          <Link to="/terms" className={styles.link}>Terms of Service</Link> and{" "}
-          <Link to="/privacy" className={styles.link}>Privacy Policy</Link>.
-        </p>
-      </form>
-    </AuthLayout>
+      </div>
+    </div>
   );
 }

@@ -5,16 +5,8 @@ import { CreateAccount } from "./CreateAccount";
 const meta: Meta<typeof CreateAccount> = {
   title: "Pages/Auth/CreateAccount",
   component: CreateAccount,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
-  parameters: {
-    layout: "fullscreen",
-  },
+  decorators: [(Story) => <MemoryRouter><Story /></MemoryRouter>],
+  parameters: { layout: "fullscreen" },
 };
 
 export default meta;

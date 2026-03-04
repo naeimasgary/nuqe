@@ -1,4 +1,4 @@
-/* InputField component styles */
+/* InputField — matches Figma input component (node I52646:30385) */
 
 .wrapper {
   display: flex;
@@ -8,10 +8,11 @@
 }
 
 .label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--neutral-800);
-  line-height: 1.4;
+  font-size: 14px;         /* --text-sm */
+  font-weight: 500;        /* Medium */
+  color: var(--neutral-800); /* --text/neutral/default #262626 */
+  line-height: 1;
+  font-family: "Roboto", "Inter", sans-serif;
 }
 
 .required {
@@ -25,28 +26,32 @@
   align-items: center;
 }
 
+/* Pill-shaped input — matches Figma border-radius: 999px, height: 44px */
 .input {
   width: 100%;
-  padding: 10px 14px;
-  font-size: 15px;
+  height: 44px;
+  padding: 10px 16px;
+  font-size: 14px;         /* --text-sm */
   font-weight: 400;
+  font-family: "Roboto", "Inter", sans-serif;
   color: var(--neutral-800);
   background: #fff;
-  border: 1.5px solid var(--neutral-200);
-  border-radius: 8px;
+  border: 1.5px solid var(--neutral-400); /* --outline/neutral/default #a1a1a1 */
+  border-radius: 999px;                   /* --border-radius/full */
   outline: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05); /* Shadow/xs */
   transition: border-color 0.15s, box-shadow 0.15s;
   box-sizing: border-box;
-  font-family: inherit;
 }
 
 .input::placeholder {
   color: var(--neutral-400);
 }
 
+/* Focus — matches Figma: border = skyBrand-500, focus ring = rgba(73,119,232,0.12) spread 4px */
 .input:focus {
   border-color: var(--skyBrand-500);
-  box-shadow: 0 0 0 3px rgba(0, 166, 244, 0.12);
+  box-shadow: 0 0 0 4px rgba(73, 119, 232, 0.12);
 }
 
 .input.hasError {
@@ -54,45 +59,36 @@
 }
 
 .input.hasError:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
-}
-
-.input.hasPrefix {
-  padding-left: 40px;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
 }
 
 .input.hasSuffix {
-  padding-right: 40px;
+  padding-right: 44px;
 }
 
-.prefixIcon,
 .suffixIcon {
   position: absolute;
+  right: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--neutral-400);
-  pointer-events: none;
-}
-
-.prefixIcon {
-  left: 12px;
-}
-
-.suffixIcon {
-  right: 12px;
-  pointer-events: auto;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
 }
 
 .helper {
-  font-size: 13px;
-  color: var(--neutral-500);
+  font-size: 12px;         /* --text-xs */
+  color: var(--neutral-800);
   line-height: 1.4;
+  font-family: "Roboto", "Inter", sans-serif;
 }
 
 .error {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--rose-500);
   line-height: 1.4;
 }

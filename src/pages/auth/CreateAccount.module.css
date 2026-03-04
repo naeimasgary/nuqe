@@ -1,188 +1,325 @@
-.header {
-  margin-bottom: 32px;
+/* Create Account page — matches Figma node 52646:29212 */
+
+.page {
+  display: flex;
+  min-height: 100vh;
+  align-items: stretch;
+  font-family: "Roboto", "Inter", sans-serif;
 }
 
-.title {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--neutral-800);
-  letter-spacing: -0.4px;
-  margin-bottom: 8px;
+/* ── Left: dark hero (881px wide in Figma) ── */
+.hero {
+  flex: 0 0 52%;
+  background: var(--gray-800); /* #1e2939 */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 100px;
+  overflow: hidden;
 }
 
-.subtitle {
-  font-size: 15px;
-  color: var(--neutral-500);
-  line-height: 1.5;
+.heroBg {
+  position: absolute;
+  width: 726px;
+  height: 737px;
+  right: -60px;
+  bottom: -180px;
+  pointer-events: none;
+  object-fit: cover;
+  opacity: 0.9;
 }
 
-.form {
+.heroContent {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-/* ── Role cards ── */
-.roleGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.roleCard {
+  gap: 72px;
+  width: 372px;
   position: relative;
-  border: 2px solid var(--neutral-200);
-  border-radius: 12px;
-  padding: 18px 16px;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  z-index: 1;
+}
+
+.heroLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.heroLogoSymbol  { height: 44px; width: auto; }
+.heroLogoWordmark { height: 36px; width: auto; }
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.heroTextBlock {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  color: #fefefe;
+}
+
+.heroTitle {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  margin: 0;
+  color: rgba(254, 254, 254, 0.85);
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+  background: var(--skyBrand-500);
+  color: #fefefe;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  transition: background 0.15s;
+  font-family: inherit;
+  width: fit-content;
+}
+
+.heroCta:hover { background: var(--skyBrand-600); }
+
+/* ── Right: white form panel ── */
+.formSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 100px;
   background: #fff;
+}
+
+.formInner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Small logo symbol */
+.logoMark {
+  height: 24px;
+  width: auto;
+}
+
+/* ── Title ── */
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pageTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--neutral-800);
+  line-height: 30px;
+  margin: 0;
+}
+
+.pageSubtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--neutral-500);
+  line-height: 1;
+  margin: 0;
+}
+
+/* ── Checkboxes (Buyer / Seller) ── */
+.checkboxRow {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--neutral-800);
   user-select: none;
 }
 
-.roleCard:hover {
-  border-color: var(--skyBrand-300);
-  background: var(--skyBrand-50);
-}
-
-.roleCard.selected {
-  border-color: var(--skyBrand-500);
-  background: #f0f9ff;
-}
-
-.roleCard input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.roleCardIcon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--neutral-100);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--neutral-600);
-  transition: background 0.15s, color 0.15s;
-}
-
-.roleCard.selected .roleCardIcon {
-  background: rgba(0, 166, 244, 0.12);
-  color: var(--skyBrand-500);
-}
-
-.roleCardLabel {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--neutral-800);
-}
-
-.roleCardDesc {
-  font-size: 12px;
-  color: var(--neutral-500);
-  line-height: 1.4;
-}
-
-.roleCheck {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid var(--neutral-300);
+/* Hide native checkbox — use custom */
+.checkboxLabel input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--neutral-400);
+  border-radius: 4px;
   background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.15s, background 0.15s;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.12s, border-color 0.12s;
 }
 
-.roleCard.selected .roleCheck {
-  border-color: var(--skyBrand-500);
+.checkboxLabel input[type="checkbox"]:checked {
   background: var(--skyBrand-500);
+  border-color: var(--skyBrand-600);
 }
 
-/* ── Password strength ── */
-.passwordStrength {
+/* Checkmark drawn via pseudo-element */
+.checkboxLabel input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  width: 8px;
+  height: 5px;
+  border-left: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(-45deg);
+}
+
+/* ── Fields section ── */
+.fields {
   display: flex;
-  gap: 4px;
-  margin-top: 6px;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.strengthBar {
-  flex: 1;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--neutral-200);
-  transition: background 0.2s;
+/* Role dropdown — pill-shaped, matches email input style */
+.selectWrap {
+  position: relative;
+  width: 100%;
 }
 
-.strengthBar.active.weak { background: var(--rose-400); }
-.strengthBar.active.medium { background: var(--amber-400, #f59e0b); }
-.strengthBar.active.strong { background: #00CEB6; }
+.select {
+  width: 100%;
+  height: 44px;
+  padding: 10px 40px 10px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Roboto", "Inter", sans-serif;
+  color: var(--neutral-800);
+  background: #fff;
+  border: 1.5px solid var(--neutral-400);
+  border-radius: 999px;
+  outline: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
 
-/* ── Submit ── */
+.select:focus {
+  border-color: var(--skyBrand-500);
+  box-shadow: 0 0 0 4px rgba(73, 119, 232, 0.12);
+}
+
+.selectLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--neutral-800);
+  line-height: 1;
+  font-family: "Roboto", "Inter", sans-serif;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.selectChevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--neutral-500);
+  pointer-events: none;
+}
+
+/* ── Bottom section: button + footer ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .submitBtn {
   width: 100%;
-  padding: 12px;
+  padding: 14px 20px;
+  height: 44px;
   background: var(--skyBrand-500);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.15s;
-  font-family: inherit;
-  margin-top: 4px;
-}
-
-.submitBtn:hover {
-  background: var(--skyBrand-600);
-}
-
-.submitBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 8px;
+  color: #fefefe;
   font-size: 14px;
-  color: var(--neutral-500);
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.link {
+.submitBtn:hover { background: var(--skyBrand-600); }
+.submitBtn:disabled { background: var(--skyBrand-200); cursor: not-allowed; }
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.footerText  { color: var(--neutral-500); font-weight: 400; }
+.footerLink  {
   color: var(--skyBrand-500);
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: none;
 }
-
-.link:hover {
-  text-decoration: underline;
-}
+.footerLink:hover { text-decoration: underline; }
 
 .errorBanner {
   background: var(--rose-50);
   border: 1px solid var(--rose-200);
-  color: var(--rose-700, #be123c);
+  color: #be123c;
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 10px 14px;
   font-size: 14px;
-  line-height: 1.4;
 }
 
-.terms {
-  font-size: 13px;
-  color: var(--neutral-500);
-  text-align: center;
-  line-height: 1.5;
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .hero { padding: 40px 60px; }
+  .formSide { padding: 40px 60px; }
+}
+
+@media (max-width: 900px) {
+  .hero { display: none; }
+  .page { background: var(--slate-50); }
+  .formSide {
+    flex: 1;
+    padding: 40px 24px;
+  }
 }
