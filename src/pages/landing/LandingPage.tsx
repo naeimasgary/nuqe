@@ -13,7 +13,7 @@ export function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ minWidth: "320px" }}>
+    <div className="min-w-[320px]">
       <BannerHeader
         badge="New"
         message="Frontend Pages Added"

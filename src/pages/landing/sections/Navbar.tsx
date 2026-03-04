@@ -1,9 +1,8 @@
-import styles from "./Navbar.module.css";
 import { NuqleiLogo } from "../../../components/NuqleiLogo";
 
 function ChevronDownIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -11,35 +10,36 @@ function ChevronDownIcon() {
 
 export function Navbar() {
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.inner}>
-        {/* Logo */}
-        <div className={styles.logo}>
+    <nav className="w-full bg-white border-b border-neutral-200 px-6">
+      <div className="max-w-7xl mx-auto h-16 flex items-center justify-between gap-6">
+        <div className="flex-shrink-0">
           <NuqleiLogo size="sm" variant="default" />
         </div>
 
-        {/* Navigation Links */}
-        <div className={styles.navLinks}>
-          <button className={styles.navItem}>About Nuqlei</button>
-          <button className={styles.navItem}>Features</button>
-          <button className={styles.navItem}>
+        <div className="hidden md:flex items-center gap-1 flex-1">
+          {["About Nuqlei", "Features"].map((l) => (
+            <button key={l} className="px-3 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors">
+              {l}
+            </button>
+          ))}
+          <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors">
             Solutions
-            <span className={styles.badge}>New</span>
+            <span className="bg-sky-brand-100 text-sky-brand-600 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">New</span>
           </button>
-          <button className={styles.navItem}>
-            Team
-            <ChevronDownIcon />
-          </button>
-          <button className={styles.navItem}>
-            Reviews
-            <ChevronDownIcon />
-          </button>
+          {["Team", "Reviews"].map((l) => (
+            <button key={l} className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors">
+              {l} <ChevronDownIcon />
+            </button>
+          ))}
         </div>
 
-        {/* Actions */}
-        <div className={styles.actions}>
-          <button className={styles.btnPrimary}>Create Project</button>
-          <button className={styles.btnOutline}>Sign in</button>
+        <div className="hidden md:flex items-center gap-2">
+          <button className="px-4 py-2 rounded-full bg-sky-brand-500 text-white text-sm font-semibold hover:bg-sky-brand-600 transition-colors">
+            Create Project
+          </button>
+          <button className="px-4 py-2 rounded-full border border-neutral-300 text-neutral-800 text-sm font-semibold hover:bg-neutral-50 transition-colors">
+            Sign in
+          </button>
         </div>
       </div>
     </nav>

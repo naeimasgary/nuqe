@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Nuqlei Design Tokens — Tailwind v4 @theme
+   All values sourced directly from Figma variable collections
+   ============================================================ */
+
+@theme {
+  /* ─── Color Palette: sky (Brand) ─────────────────────────── */
+  --color-sky-brand-50:  #f0f9ff;
+  --color-sky-brand-100: #dff2fe;
+  --color-sky-brand-200: #b8e6fd;
+  --color-sky-brand-300: #7ad3fb;
+  --color-sky-brand-400: #35bdf7;
+  --color-sky-brand-500: #00a6f4;
+  --color-sky-brand-600: #0084d1;
+  --color-sky-brand-700: #0068a8;
+  --color-sky-brand-800: #00528a;
+  --color-sky-brand-900: #044471;
+  --color-sky-brand-950: #052f4a;
+
+  /* ─── Color Palette: neutral ──────────────────────────────── */
+  --color-neutral-50:  #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a1a1a1;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  /* ─── Color Palette: slate ────────────────────────────────── */
+  --color-slate-50:  #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e2939;
+  --color-slate-900: #0f172b;
+  --color-slate-950: #020617;
+
+  /* ─── Color Palette: gray ─────────────────────────────────── */
+  --color-gray-50:  #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1e2939;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* ─── Color Palette: rose ─────────────────────────────────── */
+  --color-rose-50:  #fff1f2;
+  --color-rose-100: #ffe4e6;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+
+  /* ─── Color Palette: teal ─────────────────────────────────── */
+  --color-teal-50:  #f0fdfa;
+  --color-teal-100: #ccfbf1;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+
+  /* ─── Color Palette: red ──────────────────────────────────── */
+  --color-red-50:  #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+
+  /* ─── Semantic: Backgrounds ───────────────────────────────── */
+  --color-bg-white:            #fefefe;
+  --color-bg-neutral-default:  #f5f5f5;
+  --color-bg-neutral-hover:    #e5e5e5;
+  --color-bg-neutral-pressed:  #d4d4d4;
+  --color-bg-primary-default:  #00a6f4;
+  --color-bg-primary-hover:    #0084d1;
+  --color-bg-primary-pressed:  #00528a;
+  --color-bg-primary-disabled: #dff2fe;
+  --color-bg-danger-default:   #ff6692;
+  --color-bg-danger-hover:     #e8527d;
+  --color-bg-danger-pressed:   #cc3d68;
+  --color-bg-danger-disabled:  #ffd9e4;
+
+  /* ─── Semantic: Text ──────────────────────────────────────── */
+  --color-text-white:          #fefefe;
+  --color-text-default:        #262626;
+  --color-text-secondary:      #737373;
+  --color-text-disabled:       #d4d4d4;
+  --color-text-primary:        #00a6f4;
+  --color-text-primary-hover:  #0084d1;
+
+  /* ─── Semantic: Outlines ──────────────────────────────────── */
+  --color-outline-default:    #a1a1a1;
+  --color-outline-subtle:     #e5e5e5;
+  --color-outline-brand:      #0084d1;
+  --color-outline-dark:       #262626;
+  --color-outline-focused:    #00528a;
+
+  /* ─── Typography: Font families ──────────────────────────── */
+  --font-sans:   "Roboto", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-inter:  "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-figtree: "Figtree", "Roboto", ui-sans-serif, sans-serif;
+
+  /* ─── Typography: Font sizes ─────────────────────────────── */
+  --text-xs:         12px;
+  --text-xs--line-height: 16px;
+  --text-sm:         14px;
+  --text-sm--line-height: 20px;
+  --text-base:       16px;
+  --text-base--line-height: 24px;
+  --text-lg:         18px;
+  --text-lg--line-height: 28px;
+  --text-xl:         20px;
+  --text-xl--line-height: 30px;
+  --text-2xl:        24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl:        30px;
+  --text-3xl--line-height: 38px;
+  --text-4xl:        36px;
+  --text-4xl--line-height: 44px;
+  --text-5xl:        48px;
+  --text-5xl--line-height: 56px;
+  --text-6xl:        60px;
+  --text-6xl--line-height: 68px;
+
+  /* ─── Border Radius ──────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-3xl:  24px;
+  --radius-full: 9999px;
+
+  /* ─── Shadows ─────────────────────────────────────────────── */
+  --shadow-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px -1px rgba(16, 24, 40, 0.06);
+  --shadow-focus-primary: 0 0 0 4px rgba(73, 119, 232, 0.12), 0px 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-focus-neutral: 0 0 0 4px rgba(100, 116, 139, 0.12), 0px 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-focus-danger:  0 0 0 4px rgba(255, 102, 146, 0.20), 0px 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+/* ─── Base styles ─────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-text-default);
+    background-color: var(--color-bg-white);
+    line-height: 1.5;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}

@@ -1,14 +1,9 @@
 import { useState } from "react";
-import styles from "./BannerHeader.module.css";
 
 export interface BannerHeaderProps {
-  /** Pill badge label (e.g. "New") */
   badge?: string;
-  /** Announcement message text */
   message?: string;
-  /** Whether the banner can be dismissed by the user */
   dismissible?: boolean;
-  /** Called when the user dismisses the banner */
   onDismiss?: () => void;
 }
 
@@ -28,15 +23,26 @@ export function BannerHeader({
   }
 
   return (
-    <div className={styles.banner} role="banner" aria-label="Announcement">
-      <div className={styles.inner}>
-        {badge && <span className={styles.badge}>{badge}</span>}
-        <span className={styles.message}>{message}</span>
+    <div
+      className="w-full bg-slate-900 flex items-center justify-center px-6 py-3 relative overflow-hidden"
+      role="banner"
+      aria-label="Announcement"
+      style={{
+        background: "radial-gradient(ellipse 60% 100% at 50% 50%, #1e3a5f 0%, #0f172b 70%)",
+      }}
+    >
+      <div className="flex items-center gap-3 relative z-10">
+        {badge && (
+          <span className="bg-sky-brand-100 text-sky-brand-500 text-xs font-medium px-2 py-0.5 rounded-full leading-none">
+            {badge}
+          </span>
+        )}
+        <span className="text-white text-xs font-normal">{message}</span>
       </div>
 
       {dismissible && (
         <button
-          className={styles.dismiss}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors p-1"
           onClick={handleDismiss}
           aria-label="Dismiss announcement"
         >

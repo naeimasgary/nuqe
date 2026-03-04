@@ -1,29 +1,27 @@
-import styles from "./Hero.module.css";
-
 const illustrationSrc = "https://www.figma.com/api/mcp/asset/0fd598fb-de61-40d8-a1a6-b05d0628b8e4";
 
 export function Hero() {
   return (
-    <section className={styles.hero}>
-      <div className={styles.inner}>
-        <div className={styles.content}>
-          <div className={styles.textContainer}>
-            <h1 className={styles.headline}>
+    <section className="bg-white py-20 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <div className="flex flex-col gap-8 flex-1 max-w-xl">
+          <div className="flex flex-col gap-5">
+            <h1 className="text-5xl lg:text-6xl font-bold text-text-default leading-tight">
               Source Industrial
               <br />
               Automation with{" "}
-              <span className={styles.headlineBold}>Confidence</span>
+              <span className="text-sky-brand-500">Confidence</span>
             </h1>
-            <p className={styles.subheadline}>
-              The vetted B2B marketplace where buyers and sellers of
-              instrumentation and programming services connect anonymously —
-              with trust built in.
+            <p className="text-text-secondary text-lg leading-relaxed">
+              The vetted B2B marketplace where buyers and sellers of instrumentation and programming services connect anonymously — with trust built in.
             </p>
           </div>
-          <button className={styles.cta}>Create Project</button>
+          <button className="inline-flex items-center justify-center self-start px-6 py-3 rounded-full bg-sky-brand-500 text-white text-sm font-semibold shadow-xs hover:bg-sky-brand-600 active:bg-sky-brand-800 transition-colors">
+            Create Project
+          </button>
         </div>
-        <div className={styles.illustration}>
-          <img src={illustrationSrc} alt="Industrial automation illustration" />
+        <div className="flex-1 flex items-center justify-center">
+          <img src={illustrationSrc} alt="Industrial automation illustration" className="max-w-full w-full max-w-lg" />
         </div>
       </div>
     </section>

@@ -1,217 +1,137 @@
-import styles from "./NuqleiLogo.module.css";
+// ─── Design source ────────────────────────────────────────────────────────────
+// SVG paths extracted directly from the Figma export (node 52596:2770, medium).
+// Full logo: viewBox="0 0 205 44"
+//   • Symbol (infinity mark): x ≈ 0–72, fill #00A6F4
+//   • Wordmark ("Nuqlei"):    x ≈ 80–205, fill #262626
+//
+// For scaling we render each part in its own <svg> with a cropped viewBox so
+// height can be set freely and width follows the natural aspect ratio.
 
-// ─── Size table: [symbol height, gap, wordmark height] ───────────────────────
-// Matches Figma aspect ratios exactly from node 52596:2431
+// ─── Symbol ──────────────────────────────────────────────────────────────────
+// Cropped viewBox covers just the symbol glyph: 0 0 72.15 44
+const SYMBOL_VB_W = 72.15;
+const SYMBOL_VB_H = 44;
+
+// ─── Wordmark ─────────────────────────────────────────────────────────────────
+// The wordmark paths live at x ≈ 80.34 to 204.37 in the original 205×44 space.
+// We shift them left by 80.34 so the cropped viewBox starts at 0.
+const WORDMARK_OFFSET = 80.3412;
+const WORDMARK_VB_W   = 204.371 - WORDMARK_OFFSET; // ≈ 124.03
+const WORDMARK_VB_H   = 44;
+
+// ─── Size table ───────────────────────────────────────────────────────────────
+// Height drives all dimensions; widths follow each part's natural aspect ratio.
+// Gap between symbol and wordmark matches Figma spacing at each size.
 const SIZE_MAP = {
-  xs:  { symbolH: 16,  gap: 4,  wordmarkH: 13  },
-  sm:  { symbolH: 24,  gap: 5,  wordmarkH: 20  },
-  md:  { symbolH: 44,  gap: 8,  wordmarkH: 36  },
-  lg:  { symbolH: 72,  gap: 14, wordmarkH: 60  },
-  xl:  { symbolH: 110, gap: 22, wordmarkH: 91  },
-  "2xl": { symbolH: 180, gap: 34, wordmarkH: 149 },
+  xs:    { h: 16,  gap: 4  },
+  sm:    { h: 24,  gap: 5  },
+  md:    { h: 44,  gap: 8  },
+  lg:    { h: 72,  gap: 14 },
+  xl:    { h: 110, gap: 22 },
+  "2xl": { h: 180, gap: 34 },
 } as const;
 
 export type LogoSize    = keyof typeof SIZE_MAP;
 export type LogoVariant = "default" | "white" | "black";
 
 export interface NuqleiLogoProps {
-  /** Visual size — matches Figma size tokens */
+  /** Visual size */
   size?: LogoSize;
-  /** Color variant */
+  /** Colour variant — default (blue symbol, dark wordmark), white (all white), black (all dark) */
   variant?: LogoVariant;
-  /** Show just the symbol mark (no wordmark) */
+  /** Show only the symbol mark */
   symbolOnly?: boolean;
-  /** Show just the wordmark (no symbol) */
+  /** Show only the wordmark */
   wordmarkOnly?: boolean;
   className?: string;
-  /** Accessible label — defaults to "Nuqlei" */
+  /** Accessible label */
   label?: string;
 }
 
-// ─── Symbol SVG ─────────────────────────────────────────────────────────────
-// Viewport: 0 0 164 100 — the interlocking double-loop N mark from Figma
-// Paths traced from the Figma screenshot (node 52596:2793 large variant)
-function SymbolSvg({ color, highlightColor, height }: { color: string; highlightColor: string; height: number }) {
-  const aspectRatio = 164 / 100;
-  const width = Math.round(height * aspectRatio * 10) / 10;
-
+// ─── Symbol component ─────────────────────────────────────────────────────────
+function Symbol({ color, height }: { color: string; height: number }) {
+  const width = (height / SYMBOL_VB_H) * SYMBOL_VB_W;
   return (
     <svg
       width={width}
       height={height}
-      viewBox="0 0 164 100"
+      viewBox={`0 0 ${SYMBOL_VB_W} ${SYMBOL_VB_H}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      style={{ display: "block", flexShrink: 0 }}
     >
-      {/*
-        The Nuqlei symbol is an interlocking figure-eight / infinity-N shape.
-        It has two looping arcs with a diagonal highlight slash on each loop.
-        Constructed from the Figma asset proportions.
-      */}
-
-      {/* Outer shape — main loop body */}
+      {/* Exact path from Figma export — the Nuqlei infinity-N mark */}
       <path
-        d="
-          M 41 8
-          C 20 8, 4 24, 4 45
-          C 4 66, 20 82, 41 82
-          C 57 82, 71 73, 78 59
-          L 86 50
-          L 78 41
-          C 71 27, 57 18, 41 18
-          Z
-
-          M 41 18
-          C 62 18, 79 33, 79 50
-          C 79 67, 62 82, 41 82
-
-          M 123 18
-          C 107 18, 93 27, 86 41
-          L 78 50
-          L 86 59
-          C 93 73, 107 82, 123 82
-          C 144 82, 160 66, 160 45
-          C 160 24, 144 8, 123 8
-          Z
-
-          M 123 82
-          C 102 82, 85 67, 85 50
-          C 85 33, 102 18, 123 18
-        "
+        d="M45.1105 6.0482C37.6266 4.54392 64.7096 -9.44951 71.0507 11.5044V11.5064C83.1513 91.221 -9.8004 -3.85196 22.3675 19.9537C69.948 55.1666 84.6709 14.0072 45.1105 6.0482ZM1.09412 32.4936C-11.0065 -47.221 81.9452 47.852 49.7773 24.0463C2.19679 -11.1639 -12.5254 29.993 27.0353 37.9518C34.5185 39.4563 7.43511 53.4493 1.09412 32.4956V32.4936Z"
         fill={color}
-        fillRule="evenodd"
-        clipRule="evenodd"
-      />
-
-      {/* Left loop */}
-      <ellipse
-        cx="41"
-        cy="50"
-        rx="37"
-        ry="32"
-        fill={color}
-      />
-
-      {/* Right loop */}
-      <ellipse
-        cx="123"
-        cy="50"
-        rx="37"
-        ry="32"
-        fill={color}
-      />
-
-      {/* Centre cutout — white gap between loops */}
-      <path
-        d="M 79 50 C 80 40, 84 33, 86 30 C 84 37, 82 43, 82 50 C 82 57, 84 63, 86 70 C 84 67, 80 60, 79 50 Z"
-        fill={highlightColor}
-      />
-
-      {/* Left highlight slash — diagonal bright streak */}
-      <path
-        d="M 26 24 C 32 22, 45 28, 52 38 C 45 32, 34 27, 26 24 Z"
-        fill={highlightColor}
-        opacity="0.55"
-      />
-
-      {/* Right highlight slash */}
-      <path
-        d="M 108 24 C 114 22, 127 28, 134 38 C 127 32, 116 27, 108 24 Z"
-        fill={highlightColor}
-        opacity="0.55"
       />
     </svg>
   );
 }
 
-// ─── Proper SVG symbol matching Figma exactly ────────────────────────────────
-// Built from the actual Figma shape: two overlapping rounded rectangles rotated,
-// forming the infinity-N with a diagonal cut-through highlight
-function NuqleiSymbol({ color, height }: { color: string; height: number }) {
-  const w = Math.round(height * 1.64 * 10) / 10;
-
+// ─── Wordmark component ───────────────────────────────────────────────────────
+function Wordmark({ color, height }: { color: string; height: number }) {
+  const width = (height / WORDMARK_VB_H) * WORDMARK_VB_W;
   return (
     <svg
-      width={w}
+      width={width}
       height={height}
-      viewBox="0 0 82 50"
+      // Shift the original paths left by WORDMARK_OFFSET so they start at x=0
+      viewBox={`${WORDMARK_OFFSET} 0 ${WORDMARK_VB_W} ${WORDMARK_VB_H}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      style={{ display: "block", flexShrink: 0 }}
     >
-      {/* Left lobe of the infinity mark */}
+      {/* Exact wordmark paths from Figma export */}
       <path
-        d="M20.5 2C10.3 2 2 10.3 2 20.5C2 30.7 10.3 39 20.5 39C27.4 39 33.5 35.3 37 29.8L41 25L37 20.2C33.5 14.7 27.4 11 20.5 11Z"
-        fill={color}
-      />
-      <path
-        d="M20.5 11C10.8 11 3 17.9 3 26.4C3 34.9 10.8 41.8 20.5 41.8"
-        stroke="none"
-      />
-      <ellipse cx="20.5" cy="25" rx="18.5" ry="16" fill={color} />
-
-      {/* Right lobe */}
-      <ellipse cx="61.5" cy="25" rx="18.5" ry="16" fill={color} />
-
-      {/* Diagonal highlight on left lobe */}
-      <path
-        d="M 11 10 C 15 9, 23 13, 27 19 C 22 15, 15 11, 11 10 Z"
-        fill="white"
-        opacity="0.5"
-      />
-
-      {/* Diagonal highlight on right lobe */}
-      <path
-        d="M 52 10 C 56 9, 64 13, 68 19 C 63 15, 56 11, 52 10 Z"
-        fill="white"
-        opacity="0.5"
-      />
-
-      {/* Centre bridge between lobes */}
-      <path
-        d="M 37 20 L 41 25 L 45 20 C 43 17, 41 15, 41 15 C 41 15, 39 17, 37 20 Z"
-        fill={color}
-      />
-      <path
-        d="M 37 30 L 41 25 L 45 30 C 43 33, 41 35, 41 35 C 41 35, 39 33, 37 30 Z"
+        d="M149.559 12.135C155.923 12.135 161.122 17.3328 161.122 23.7366V40.2231H155.299V32.5961C154.009 34.2191 151.888 35.2581 149.559 35.2581C143.196 35.2581 137.998 30.1006 137.998 23.7396V23.7366C137.998 17.3328 143.196 12.135 149.559 12.135ZM118.954 23.4895C118.955 26.7735 121.076 28.8536 124.195 28.8536C127.315 28.8536 129.436 26.776 129.437 23.4895V12.011H135.259V23.4895C135.259 30.0602 130.475 34.6769 124.197 34.6769C117.92 34.6767 113.136 30.06 113.136 23.4895H113.131V12.011H118.954V23.4895ZM184.041 11.3867C191.444 11.4298 196.602 17.2497 194.521 25.5673H179.674C179.965 27.5646 182.337 29.4759 185.163 29.4759C186.703 29.5163 189.363 28.8112 190.111 27.7722L194.521 31.1395C192.276 33.6778 188.658 34.6738 184.582 34.6739C177.844 34.6739 173.311 28.7274 173.311 22.9883C173.311 16.9991 177.263 11.3438 184.041 11.3867ZM204.042 34.2597H198.511V12.011H204.042V34.2597ZM109.476 30.7804C109.496 32.3579 108.416 33.6682 107.046 33.6455C106.401 33.6455 105.759 33.3544 105.238 32.8362C98.8844 26.7509 92.6343 21.6237 86.4046 15.4373V33.6475H80.3412V7.40016C80.2982 5.82265 81.3981 4.51497 82.7481 4.53503C83.3929 4.53503 84.0358 4.82628 84.5769 5.32434H84.5789C90.9122 11.4299 97.1625 16.5567 103.392 22.7432V4.53503H109.476V30.7804ZM170.32 33.6455H164.257V5.91858L170.32 4.04984V33.6455ZM149.559 17.9573C146.399 17.9573 143.82 20.5361 143.82 23.7366C143.82 26.8969 146.399 29.4358 149.559 29.4358C152.72 29.4358 155.299 26.8994 155.299 23.7366C155.298 20.574 152.72 17.9573 149.559 17.9573ZM184.251 16.5007C181.174 16.5007 179.634 18.7464 179.634 20.5363H188.824C189.031 19.0397 187.826 16.501 184.251 16.5007ZM201.294 3.77673C202.957 3.77673 204.371 5.19038 204.371 6.85395C204.371 8.51736 202.998 9.97317 201.294 9.97317C199.59 9.97302 198.218 8.47683 198.218 6.85395C198.218 5.19047 199.63 3.77688 201.294 3.77673Z"
         fill={color}
       />
     </svg>
   );
 }
 
-// ─── Wordmark SVG ────────────────────────────────────────────────────────────
-// "Nuqlei" in Figtree/Roboto bold — rendered as SVG text so colour is controllable
-function WordmarkSvg({ color, height }: { color: string; height: number }) {
-  // Maintain Figma aspect ratio: wordmark width ≈ 3.4× height
-  const w = Math.round(height * 3.4 * 10) / 10;
-
+// ─── Full logo (symbol + wordmark in one SVG) ─────────────────────────────────
+// Used when both parts share the same colour (white / black variants) so we can
+// render the original single-SVG with a single currentColor fill.
+function FullLogoSvg({ symbolColor, wordmarkColor, height }: {
+  symbolColor: string;
+  wordmarkColor: string;
+  height: number;
+}) {
+  const width = (height / 44) * 205;
   return (
     <svg
-      width={w}
+      width={width}
       height={height}
-      viewBox={`0 0 ${w} ${height}`}
+      viewBox="0 0 205 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      style={{ display: "block", flexShrink: 0 }}
     >
-      <text
-        x="0"
-        y={height * 0.82}
-        fontFamily="'Figtree', 'Roboto', 'Inter', sans-serif"
-        fontWeight="700"
-        fontSize={height}
-        fill={color}
-        letterSpacing="-0.04em"
-      >
-        Nuqlei
-      </text>
+      <g clipPath="url(#nuqlei-clip)">
+        <path
+          d="M45.1105 6.0482C37.6266 4.54392 64.7096 -9.44951 71.0507 11.5044V11.5064C83.1513 91.221 -9.8004 -3.85196 22.3675 19.9537C69.948 55.1666 84.6709 14.0072 45.1105 6.0482ZM1.09412 32.4936C-11.0065 -47.221 81.9452 47.852 49.7773 24.0463C2.19679 -11.1639 -12.5254 29.993 27.0353 37.9518C34.5185 39.4563 7.43511 53.4493 1.09412 32.4956V32.4936Z"
+          fill={symbolColor}
+        />
+        <path
+          d="M149.559 12.135C155.923 12.135 161.122 17.3328 161.122 23.7366V40.2231H155.299V32.5961C154.009 34.2191 151.888 35.2581 149.559 35.2581C143.196 35.2581 137.998 30.1006 137.998 23.7396V23.7366C137.998 17.3328 143.196 12.135 149.559 12.135ZM118.954 23.4895C118.955 26.7735 121.076 28.8536 124.195 28.8536C127.315 28.8536 129.436 26.776 129.437 23.4895V12.011H135.259V23.4895C135.259 30.0602 130.475 34.6769 124.197 34.6769C117.92 34.6767 113.136 30.06 113.136 23.4895H113.131V12.011H118.954V23.4895ZM184.041 11.3867C191.444 11.4298 196.602 17.2497 194.521 25.5673H179.674C179.965 27.5646 182.337 29.4759 185.163 29.4759C186.703 29.5163 189.363 28.8112 190.111 27.7722L194.521 31.1395C192.276 33.6778 188.658 34.6738 184.582 34.6739C177.844 34.6739 173.311 28.7274 173.311 22.9883C173.311 16.9991 177.263 11.3438 184.041 11.3867ZM204.042 34.2597H198.511V12.011H204.042V34.2597ZM109.476 30.7804C109.496 32.3579 108.416 33.6682 107.046 33.6455C106.401 33.6455 105.759 33.3544 105.238 32.8362C98.8844 26.7509 92.6343 21.6237 86.4046 15.4373V33.6475H80.3412V7.40016C80.2982 5.82265 81.3981 4.51497 82.7481 4.53503C83.3929 4.53503 84.0358 4.82628 84.5769 5.32434H84.5789C90.9122 11.4299 97.1625 16.5567 103.392 22.7432V4.53503H109.476V30.7804ZM170.32 33.6455H164.257V5.91858L170.32 4.04984V33.6455ZM149.559 17.9573C146.399 17.9573 143.82 20.5361 143.82 23.7366C143.82 26.8969 146.399 29.4358 149.559 29.4358C152.72 29.4358 155.299 26.8994 155.299 23.7366C155.298 20.574 152.72 17.9573 149.559 17.9573ZM184.251 16.5007C181.174 16.5007 179.634 18.7464 179.634 20.5363H188.824C189.031 19.0397 187.826 16.501 184.251 16.5007ZM201.294 3.77673C202.957 3.77673 204.371 5.19038 204.371 6.85395C204.371 8.51736 202.998 9.97317 201.294 9.97317C199.59 9.97302 198.218 8.47683 198.218 6.85395C198.218 5.19047 199.63 3.77688 201.294 3.77673Z"
+          fill={wordmarkColor}
+        />
+      </g>
+      <defs>
+        <clipPath id="nuqlei-clip">
+          <rect width="204.371" height="44" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }
 
-// ─── Main component ──────────────────────────────────────────────────────────
+// ─── Main export ──────────────────────────────────────────────────────────────
 export function NuqleiLogo({
   size = "sm",
   variant = "default",
@@ -220,33 +140,31 @@ export function NuqleiLogo({
   className,
   label = "Nuqlei",
 }: NuqleiLogoProps) {
-  const { symbolH, gap, wordmarkH } = SIZE_MAP[size];
+  const { h, gap } = SIZE_MAP[size];
 
-  // Colour resolution
-  const symbolColor = variant === "white" ? "#ffffff"
-                    : variant === "black" ? "#111C2D"
-                    : "#00A6F4"; // brand blue — default
+  const symbolColor   = variant === "white" ? "#ffffff" : variant === "black" ? "#111C2D" : "#00A6F4";
+  const wordmarkColor = variant === "white" ? "#ffffff" : "#111C2D";
 
-  const wordmarkColor = variant === "white" ? "#ffffff"
-                      : variant === "black" ? "#111C2D"
-                      : "#111C2D"; // dark — default
+  // When showing full logo, use single SVG so the clip-path works correctly
+  const baseClass = ["inline-flex items-center flex-shrink-0 leading-none", className].filter(Boolean).join(" ");
 
-  const showSymbol   = !wordmarkOnly;
-  const showWordmark = !symbolOnly;
+  if (!symbolOnly && !wordmarkOnly) {
+    return (
+      <span className={baseClass} role="img" aria-label={label}>
+        <FullLogoSvg symbolColor={symbolColor} wordmarkColor={wordmarkColor} height={h} />
+      </span>
+    );
+  }
 
   return (
     <span
-      className={[styles.logo, className].filter(Boolean).join(" ")}
+      className={baseClass}
       style={{ gap }}
       role="img"
       aria-label={label}
     >
-      {showSymbol && (
-        <NuqleiSymbol color={symbolColor} height={symbolH} />
-      )}
-      {showWordmark && (
-        <WordmarkSvg color={wordmarkColor} height={wordmarkH} />
-      )}
+      {!wordmarkOnly && <Symbol color={symbolColor} height={h} />}
+      {!symbolOnly && <Wordmark color={wordmarkColor} height={h} />}
     </span>
   );
 }

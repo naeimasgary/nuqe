@@ -1,8 +1,6 @@
 import { useState } from "react";
-import styles from "./SiteHeader.module.css";
 import { NuqleiLogo } from "../NuqleiLogo";
 
-// ── Types ─────────────────────────────────────────────────────────────────
 export interface NavItem {
   label: string;
   href?: string;
@@ -11,19 +9,13 @@ export interface NavItem {
 }
 
 export interface SiteHeaderProps {
-  /** Navigation items */
   navItems?: NavItem[];
-  /** Primary CTA button label */
   primaryCtaLabel?: string;
-  /** Called when the primary CTA is clicked */
   onPrimaryCtaClick?: () => void;
-  /** Secondary CTA button label */
   secondaryCtaLabel?: string;
-  /** Called when the secondary CTA is clicked */
   onSecondaryCtaClick?: () => void;
 }
 
-// ── Default nav items matching the Figma design ───────────────────────────
 const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: "About Nuqlei" },
   { label: "Features" },
@@ -32,7 +24,6 @@ const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: "Reviews", hasDropdown: true },
 ];
 
-// ── Icons ─────────────────────────────────────────────────────────────────
 function ChevronDownIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -57,7 +48,6 @@ function CloseIcon() {
   );
 }
 
-// ── Component ─────────────────────────────────────────────────────────────
 export function SiteHeader({
   navItems = DEFAULT_NAV_ITEMS,
   primaryCtaLabel = "Create Project",
@@ -69,50 +59,57 @@ export function SiteHeader({
 
   return (
     <header>
-      {/* ── Navbar ── */}
-      <nav className={styles.navbar} aria-label="Main navigation">
-        <div className={styles.navInner}>
+      {/* Navbar */}
+      <nav
+        className="w-full bg-white border-b border-neutral-200 px-6"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-7xl mx-auto h-16 flex items-center justify-between gap-6">
 
           {/* Logo */}
-          <a href="/" className={styles.logo} aria-label="Nuqlei home">
+          <a href="/" className="flex-shrink-0" aria-label="Nuqlei home">
             <NuqleiLogo size="sm" variant="default" />
           </a>
 
           {/* Desktop nav links */}
-          <ul className={styles.navLinks} role="list">
+          <ul className="hidden md:flex items-center gap-1 list-none flex-1" role="list">
             {navItems.map((item) => (
               <li key={item.label}>
                 <button
-                  className={styles.navItem}
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors"
                   onClick={() => item.href && (window.location.href = item.href)}
                 >
                   {item.label}
                   {item.badge && (
-                    <span className={styles.navItemBadge}>{item.badge}</span>
-                  )}
-                  {item.hasDropdown && (
-                    <span className={styles.chevron}>
-                      <ChevronDownIcon />
+                    <span className="bg-sky-brand-100 text-sky-brand-600 text-[10px] font-semibold px-1.5 py-0.5 rounded-full leading-none">
+                      {item.badge}
                     </span>
                   )}
+                  {item.hasDropdown && <ChevronDownIcon />}
                 </button>
               </li>
             ))}
           </ul>
 
-          {/* Desktop action buttons */}
-          <div className={styles.actions}>
-            <button className={styles.btnPrimary} onClick={onPrimaryCtaClick}>
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+            <button
+              className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-sky-brand-500 text-white text-sm font-semibold shadow-xs hover:bg-sky-brand-600 active:bg-sky-brand-800 transition-colors"
+              onClick={onPrimaryCtaClick}
+            >
               {primaryCtaLabel}
             </button>
-            <button className={styles.btnOutline} onClick={onSecondaryCtaClick}>
+            <button
+              className="inline-flex items-center justify-center px-4 py-2 rounded-full border border-neutral-300 bg-white text-neutral-800 text-sm font-semibold hover:bg-neutral-50 hover:border-neutral-400 transition-colors"
+              onClick={onSecondaryCtaClick}
+            >
               {secondaryCtaLabel}
             </button>
           </div>
 
           {/* Mobile hamburger */}
           <button
-            className={styles.menuButton}
+            className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             aria-expanded={mobileOpen}
@@ -122,83 +119,76 @@ export function SiteHeader({
         </div>
       </nav>
 
-      {/* ── Mobile drawer ── */}
-      <div
-        className={`${styles.mobileMenu}${mobileOpen ? ` ${styles.open}` : ""}`}
-        aria-modal="true"
-        role="dialog"
-        aria-label="Mobile navigation"
-      >
-        {/* Overlay */}
-        <div
-          className={styles.mobileOverlay}
-          onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
-        />
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <>
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 z-40 bg-black/40 md:hidden"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+          {/* Drawer */}
+          <div
+            className="fixed top-0 right-0 z-50 h-full w-72 bg-white shadow-xl flex flex-col md:hidden"
+            aria-modal="true"
+            role="dialog"
+            aria-label="Mobile navigation"
+          >
+            <div className="flex items-center justify-between px-4 py-4 border-b border-neutral-200">
+              <a href="/" aria-label="Nuqlei home">
+                <NuqleiLogo size="sm" variant="default" />
+              </a>
+              <button
+                className="flex items-center justify-center w-8 h-8 rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close menu"
+              >
+                <CloseIcon />
+              </button>
+            </div>
 
-        {/* Drawer panel */}
-        <div className={styles.mobileDrawer}>
-          <div className={styles.mobileMenuHeader}>
-            <a href="/" className={styles.logo} aria-label="Nuqlei home">
-              <NuqleiLogo size="sm" variant="default" />
-            </a>
-            <button
-              className={styles.mobileCloseButton}
-              onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
-            >
-              <CloseIcon />
-            </button>
-          </div>
-
-          <ul className={styles.mobileNavLinks} role="list">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <button
-                  className={styles.mobileNavItem}
-                  onClick={() => {
-                    setMobileOpen(false);
-                    if (item.href) window.location.href = item.href;
-                  }}
-                >
-                  <span className={styles.mobileNavItemLeft}>
-                    {item.label}
-                    {item.badge && (
-                      <span className={styles.navItemBadge}>{item.badge}</span>
-                    )}
-                  </span>
-                  {item.hasDropdown && (
-                    <span className={styles.chevron}>
-                      <ChevronDownIcon />
+            <ul className="flex flex-col p-3 gap-0.5 flex-1 list-none overflow-y-auto" role="list">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <button
+                    className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-neutral-700 hover:text-neutral-900 rounded-lg hover:bg-neutral-50 transition-colors"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      if (item.href) window.location.href = item.href;
+                    }}
+                  >
+                    <span className="flex items-center gap-2">
+                      {item.label}
+                      {item.badge && (
+                        <span className="bg-sky-brand-100 text-sky-brand-600 text-[10px] font-semibold px-1.5 py-0.5 rounded-full leading-none">
+                          {item.badge}
+                        </span>
+                      )}
                     </span>
-                  )}
-                </button>
-              </li>
-            ))}
-          </ul>
+                    {item.hasDropdown && <ChevronDownIcon />}
+                  </button>
+                </li>
+              ))}
+            </ul>
 
-          <div className={styles.mobileActions}>
-            <button
-              className={styles.mobileBtnPrimary}
-              onClick={() => {
-                setMobileOpen(false);
-                onPrimaryCtaClick?.();
-              }}
-            >
-              {primaryCtaLabel}
-            </button>
-            <button
-              className={styles.mobileBtnOutline}
-              onClick={() => {
-                setMobileOpen(false);
-                onSecondaryCtaClick?.();
-              }}
-            >
-              {secondaryCtaLabel}
-            </button>
+            <div className="p-4 border-t border-neutral-200 flex flex-col gap-2">
+              <button
+                className="w-full py-2.5 rounded-full bg-sky-brand-500 text-white text-sm font-semibold hover:bg-sky-brand-600 transition-colors"
+                onClick={() => { setMobileOpen(false); onPrimaryCtaClick?.(); }}
+              >
+                {primaryCtaLabel}
+              </button>
+              <button
+                className="w-full py-2.5 rounded-full border border-neutral-300 text-neutral-800 text-sm font-semibold hover:bg-neutral-50 transition-colors"
+                onClick={() => { setMobileOpen(false); onSecondaryCtaClick?.(); }}
+              >
+                {secondaryCtaLabel}
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </header>
   );
 }

@@ -1,13 +1,9 @@
-import styles from "./BannerHeader.module.css";
-
 export function BannerHeader() {
   return (
-    <div className={styles.banner}>
-      <div className={styles.inner}>
-        <div className={styles.left}>
-          <span className={styles.badge}>New</span>
-          <span className={styles.message}>Frontend Pages Added</span>
-        </div>
+    <div className="w-full bg-slate-900 flex items-center justify-center px-6 py-3">
+      <div className="flex items-center gap-3">
+        <span className="bg-sky-brand-100 text-sky-brand-500 text-xs font-medium px-2 py-0.5 rounded-full">New</span>
+        <span className="text-white text-xs">Frontend Pages Added</span>
       </div>
     </div>
   );

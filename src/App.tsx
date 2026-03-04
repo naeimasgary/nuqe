@@ -5,42 +5,11 @@ import { CreateAccount } from "./pages/auth/CreateAccount";
 import { BusinessName } from "./pages/onboarding/BusinessName";
 import { OnboardingStep1 } from "./pages/onboarding/OnboardingStep1";
 import { Verification } from "./pages/onboarding/Verification";
-
-// Placeholder for dashboard (until built)
-function DashboardPlaceholder() {
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        gap: 16,
-        background: "var(--slate-50)",
-        fontFamily: "inherit",
-      }}
-    >
-      <svg width="48" height="48" viewBox="0 0 28 28" fill="none">
-        <rect width="28" height="28" rx="8" fill="#00A6F4" />
-        <path d="M8 20V10l6-3 6 3v10l-6 3-6-3z" stroke="#fff" strokeWidth="1.8" fill="none" strokeLinejoin="round" />
-        <circle cx="14" cy="14" r="2.5" fill="#fff" />
-      </svg>
-      <h1 style={{ fontSize: 22, fontWeight: 700, color: "var(--neutral-800)", margin: 0 }}>
-        Dashboard — Coming Soon
-      </h1>
-      <p style={{ fontSize: 15, color: "var(--neutral-500)", margin: 0 }}>
-        The dashboard is being built. Check back soon!
-      </p>
-      <a
-        href="/"
-        style={{ color: "var(--skyBrand-500)", fontWeight: 500, textDecoration: "none", fontSize: 14 }}
-      >
-        ← Back to home
-      </a>
-    </div>
-  );
-}
+import { DashboardHome } from "./pages/dashboard/DashboardHome";
+import { QuotesPage } from "./pages/dashboard/QuotesPage";
+import { ProjectsPage } from "./pages/dashboard/ProjectsPage";
+import { ChatsPage } from "./pages/dashboard/ChatsPage";
+import { SettingsPage, HelpPage } from "./pages/dashboard/PlaceholderPage";
 
 export function App() {
   return (
@@ -63,8 +32,13 @@ export function App() {
         <Route path="/verify/success" element={<Verification state="success" />} />
         <Route path="/verify/failed" element={<Verification state="failed" />} />
 
-        {/* Dashboard (placeholder) */}
-        <Route path="/dashboard/*" element={<DashboardPlaceholder />} />
+        {/* Dashboard */}
+        <Route path="/dashboard" element={<DashboardHome />} />
+        <Route path="/dashboard/quotes" element={<QuotesPage />} />
+        <Route path="/dashboard/projects" element={<ProjectsPage />} />
+        <Route path="/dashboard/chats" element={<ChatsPage />} />
+        <Route path="/dashboard/settings" element={<SettingsPage />} />
+        <Route path="/dashboard/help" element={<HelpPage />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />

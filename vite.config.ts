@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -15,7 +16,7 @@ const base = process.env.GITHUB_ACTIONS ? '/nuqe/' : '/';
 
 export default defineConfig({
   base,
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
   test: {
     projects: [{
       extends: true,
