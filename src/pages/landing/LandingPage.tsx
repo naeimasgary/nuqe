@@ -1,5 +1,4 @@
-import { BannerHeader } from "./sections/BannerHeader";
-import { Navbar } from "./sections/Navbar";
+import { SiteHeader } from "../../components/SiteHeader";
 import { Hero } from "./sections/Hero";
 import { Features } from "./sections/Features";
 import { HowItWorks } from "./sections/HowItWorks";
@@ -10,9 +9,8 @@ import { Footer } from "./sections/Footer";
 
 export function LandingPage() {
   return (
-    <div style={{ minWidth: "1440px" }}>
-      <BannerHeader />
-      <Navbar />
+    <div style={{ minWidth: "320px" }}>
+      <SiteHeader />
       <main>
         <Hero />
         <Features />
