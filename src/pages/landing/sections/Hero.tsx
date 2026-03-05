@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const illustrationSrc = "https://www.figma.com/api/mcp/asset/0fd598fb-de61-40d8-a1a6-b05d0628b8e4";
 
 export function Hero() {
@@ -16,9 +18,13 @@ export function Hero() {
               The vetted B2B marketplace where buyers and sellers of instrumentation and programming services connect anonymously — with trust built in.
             </p>
           </div>
-          <button className="inline-flex items-center justify-center self-start px-6 py-3 rounded-full bg-sky-brand-500 text-white text-sm font-semibold shadow-xs hover:bg-sky-brand-600 active:bg-sky-brand-800 transition-colors">
+          {/* "Create Project" takes buyer to registration with buyer pre-selected */}
+          <Link
+            to="/register?from=create-project"
+            className="inline-flex items-center justify-center self-start px-6 py-3 rounded-full bg-sky-brand-500 text-white text-sm font-semibold shadow-xs hover:bg-sky-brand-600 active:bg-sky-brand-800 transition-colors"
+          >
             Create Project
-          </button>
+          </Link>
         </div>
         <div className="flex-1 flex items-center justify-center">
           <img src={illustrationSrc} alt="Industrial automation illustration" className="max-w-full w-full max-w-lg" />

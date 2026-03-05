@@ -2,7 +2,7 @@
 
 > **Source**: Figma canvas `UX Flow` (node `52643:22421`, section `52788:33360`)
 > **Product**: Nuqlei — A vetted B2B marketplace for industrial automation instrumentation and programming services.
-> **Last updated**: March 2026 (reflects latest Figma design pass)
+> **Last updated**: March 2026 (reflects full buyer persona context + email flow)
 
 ---
 
@@ -17,100 +17,183 @@ Nuqlei is a two-sided B2B marketplace connecting **Buyers** (industrial companie
 
 ---
 
-## 2. User Roles
+## 2. User Personas
 
-| Role | Description |
-|------|-------------|
-| **Buyer** | Creates Projects, sources vendors, sends quote requests, manages anonymous chats |
-| **Seller** | Lists services, receives quote requests, responds via anonymous chat, gets paid |
-| **Admin** | Verifies/approves accounts, manages the directory (implied, not yet shown in UI) |
+### Persona 1: Buyer (Primary — Landing page target)
+The **landing page is built for buyers**. A buyer is an industrial company that wants to source products, instrumentation, or services. The primary landing page CTA is **"Create Project"**.
+
+| Buyer Type | Description | Entry Point |
+|------------|-------------|-------------|
+| **New Buyer** | First-time visitor, no account | Clicks "Create Project" on landing page |
+| **Returning Verified Buyer** | Has approved account | Clicks "Sign In" on landing/navbar |
+| **Pending Buyer** | Applied but awaiting approval | Checks email, waits 18-24 hrs |
+
+### Persona 2: Seller
+The **seller flow is separate**. Sellers can select "I am a Seller" on the Create Account page. The landing page copy is still buyer-focused, but sellers can access registration through the same form.
+
+### Persona 3: Admin
+Approves/rejects buyer applications (not represented in the UI yet).
 
 ---
 
-## 3. Complete UX Flow (Updated)
+## 3. Complete UX Flow — Buyer Journey
 
-### 3.1 Public / Pre-Authentication
+### 3.1 New Buyer — Full Registration & First Project Flow
 
 ```
-Landing Page (Home Page)
+LANDING PAGE
     │
-    ├─► [Sign In] ────────────────────────► Sign In Page
-    │   (button in navbar)                      │
-    │                                           └─► Dashboard (if credentials valid)
-    │
-    └─► [Create Project] in navbar
-              │
-              ▼
-    Create Account — Role Selection
-    (Radio: "I am a Buyer" | "I am a Seller")
-    ─── Email field shown ───
-    ─── Alert: "Buyer Vetting Required" (if Buyer selected) ───
-    ─── [Apply] button ───
-              │
-              ▼
-    Create Account — Set Password
-    (Password + Retype Password with validation)
-    ─── "Passwords matching" ✓ / "Passwords must match" ✗ ───
-              │
-              ▼
-    Create Account — Verification (Thank you)
-    "Thank you for applying"
-    "Verification might take 12 to 24 hours."
-              │
-              ▼
-    Sign In (once approved by admin)
-              │
-              ▼
-    Welcome Screen — "Welcome to Nuqlei"
-    "Lets build your first project!"
-    ─── Inline: [Project name input] [Create] ───
-              │
-              ▼
-    Create Project (inside Dashboard shell)
-    "Create your first project"
-    ─── Project Name, Project Category (search), Postal Code ───
-              │
-              ▼
-    Search All Sellers (inside Dashboard shell)
-    ─── Category filter + search ───
-    ─── Top 3 results (Company + distance + URL + checkbox) ───
-    ─── [Send project to sellers] ───
-              │
-              ▼
-    Waiting Screen / Loading Screen
-    "Waiting screen — Project loading in Dashboard"
-              │
-              ▼
-    Dashboard (Project Dashboard)
+    └─► [Create Project] button  ──────────────────────────────────────────────┐
+                                                                                │
+    CREATE ACCOUNT page                                                         │
+    • "I am a Buyer" pre-selected (default, because CTA was Create Project)    │
+    • Enter email                                                               │
+    • "Buyer Vetting Required" info box shown                                  │
+    • Click [Apply]                                                             │
+         │                                                                      │
+         ├─► NEW TAB opens: Email #1 — "Thank you for applying"                │
+         │   (Registration Confirmation email)                                  │
+         │                                                                      │
+         └─► VERIFICATION PENDING page                                          │
+             "Thank you for applying / You have successfully applied"           │
+                                                                                │
+         ── 18–24 HOUR WAIT (admin reviews application) ──                     │
+                                                                                │
+         NEW TAB opens: Email #2 — "Congratulations! You are verified"         │
+         • CTA button: "Create your first project"                              │
+         • That button links to: SET PASSWORD page                              │
+                                                                                │
+    SET PASSWORD page (/register/set-password)                                  │
+    • Enter password + confirm                                                  │
+    • Live validation: "Passwords matching ✓" / "Passwords must match ✗"       │
+    • Click [Create Password]                                                   │
+         │                                                                      │
+         └─► SIGN IN page                                                       │
+                                                                                │
+    SIGN IN (first time)                                                        │
+    • Enter email + password                                                    │
+    • Click [Sign in]                                                           │
+         │                                                                      │
+         └─► FIRST-TIME BUYER WALKTHROUGH (not dashboard directly)             │
+                                                                                │
+    WALKTHROUGH STEP 1: Welcome Screen                                          │
+    "Welcome to Nuqlei / Lets build your first project!"                       │
+    • Enter project name → [Next]                                               │
+         │                                                                      │
+    WALKTHROUGH STEP 2: Postal Code                                             │
+    • Enter postal code → [Next]                                                │
+         │                                                                      │
+    WALKTHROUGH STEP 3: Project Category                                        │
+    • Search/select category → [Next]                                           │
+         │                                                                      │
+    CREATE PROJECT page (Dashboard shell — PARTIALLY PRE-FILLED)               │
+    • Project Name: pre-filled from walkthrough Step 1                          │
+    • Postal Code: pre-filled from walkthrough Step 2                           │
+    • Project Category: pre-filled from walkthrough Step 3                     │
+    • Budget, Delivery Date, Description, Attachments: blank (optional)        │
+    • Required: Project Name, Postal Code, Category                             │
+    • Click [Find Sellers]                                                       │
+         │                                                                      │
+         └─► SUGGESTED SELLERS MODAL opens (over the Projects page)            │
+             • Category filter + search bar (pre-filled with project category)  │
+             • Distance / Ascending sort pills                                  │
+             • "Top 3 results" — best sellers by distance + category           │
+             • Each seller: Company Name, City/Province, Distance, Website     │
+             • Checkboxes to select/deselect sellers                            │
+             • [See all Sellers] → navigates to full All Sellers page           │
+             • [Send project to sellers] → sends project, goes to Waiting Screen│
+                                                                                │
+    WAITING SCREEN (/onboarding/loading)                                        │
+    "Waiting screen — Project loading in Dashboard"                             │
+    • Auto-redirects to Dashboard after ~3 seconds                              │
+         │                                                                      │
+    DASHBOARD (Home)                                                            │
 ```
 
 ---
 
-### 3.2 Authentication & Onboarding Flow — Detailed Pages
+### 3.2 Returning Verified Buyer — Quick Sign In Flow
 
-| Step | Page Name (Figma) | Figma Node | Key Content |
-|------|-------------------|-----------|-------------|
-| 1 | **Sign In** | `52646:30366` | Split layout: Left = dark hero (brand copy "Start selling" + neon visual); Right = white card with Nuqlei symbol, "Welcome / Sign in", email + password, [Sign in] button, "Don't have an account? Create Account" |
-| 2 | **Create Account — Role Select** | `52646:29212` | Split layout: Left = dark hero ("Apply to start creating Projects..."); Right = white panel with "Join / The Nuqlei Network", radio buttons (Buyer/Seller), email field, "Buyer Vetting Required" alert box, [Apply] button |
-| 3 | **Create Account — Verification** | `52669:15188` | Split layout: Left = dark hero; Right = "Thank you for applying / You have successfully applied to the Nuqlei network." + "Please be patient..." + "Verification might take 12 to 24 hours." |
-| 4 | **Set Password** | `52764:9291` | Split layout: Left = dark hero; Right = white card "Set your password", Password + Retype Password fields, password validation indicators (matching / must match), [Create Password] button |
-| 5 | **Welcome / Project Name** | `52677:4284` | Full-screen dark background with neon: centered "Welcome to Nuqlei / Lets build your first project!" + inline [Project name input] + [Create] button |
-| 6 | **Create Project (Onboarding)** | `52677:4365` | Split dark layout: Left = hero "Tell us about your project"; Right = white card "Create your first project" — Postal Code, Project Category (search), Postal Code again, [Next] button |
-| 7 | **Waiting Screen** | `52764:9210` | Full-screen dark: centered Nuqlei logo + "Waiting screen" + "Project loading in Dashboard" |
-
-**Key Changes from Previous Version:**
-- The old multi-step onboarding (Business Name → Step 1/3 category chips → Verification) has been **redesigned**
-- Registration is now: **Role Select + Email → Set Password → Verification confirmation**
-- A new **"Welcome to Nuqlei"** screen prompts immediate project creation
-- The **project creation** flow now happens within the dashboard shell (not a standalone page)
-- New **"Set Password"** step with real-time validation indicators
-- The "Buyer Vetting Required" info box is shown inline on the registration form
+```
+LANDING PAGE (or any page)
+    │
+    └─► [Sign In] link (in navbar)
+             │
+    SIGN IN page
+    • Enter email + password → [Sign in]
+             │
+    DASHBOARD (directly — no walkthrough)
+             │
+    PROJECTS page (blank Create Project form — no pre-fill)
+    • Fill in all fields manually
+    • Click [Find Sellers]
+             │
+    SUGGESTED SELLERS MODAL (same as above)
+```
 
 ---
 
-### 3.3 Authenticated App — Dashboard Shell
+### 3.3 Email Flow (Mocked — Opens as New Browser Tab)
 
-All authenticated pages share the same **dashboard shell layout** (232px sidebar + fluid main area):
+Since this is a mockup website, emails are simulated by opening a new browser tab at key trigger points. This lets reviewers see the full cohesive flow including what emails were sent and when.
+
+| # | Trigger | Email Content | Route |
+|---|---------|---------------|-------|
+| 1 | User clicks [Apply] on Create Account page | "Thank you for applying" — registration confirmation | `/email/registration-confirmation` |
+| 2 | User's account is verified (simulated by "Simulate Verification" button on pending page) | "Congratulations! You have been approved" — with [Create your first project] CTA button linking to `/register/set-password` | `/email/account-verified` |
+
+---
+
+## 4. Authentication & Onboarding Pages — Detailed
+
+| Step | Page Name | Route | Figma Node | Notes |
+|------|-----------|-------|-----------|-------|
+| 1 | **Create Account** | `/register` | `52646:29212` | "I am a Buyer" pre-selected; "Buyer Vetting Required" box; opens Email #1 on Apply |
+| 2 | **Verification Pending** | `/register/verification` | `52669:15188` | Shows success message; "Simulate 24hr verification" button opens Email #2 in new tab |
+| 3 | **Set Password** | `/register/set-password` | `52764:9291` | Reached from Email #2 CTA; password + confirm with live validation |
+| 4 | **Sign In** | `/sign-in` | `52646:30366` | After set password; first-time users go to walkthrough |
+| 5 | **Walkthrough Step 1** | `/onboarding/step/1` | `52677:4284` | Project name entry |
+| 6 | **Walkthrough Step 2** | `/onboarding/step/2` | NEW | Postal code entry |
+| 7 | **Walkthrough Step 3** | `/onboarding/step/3` | NEW | Category selection |
+| 8 | **Create Project (pre-filled)** | `/dashboard/projects` | `52676:5164` | Dashboard shell; fields pre-filled from walkthrough |
+| 9 | **Suggested Sellers Modal** | (modal on `/dashboard/projects`) | `52790:33545` | Opens on [Find Sellers] click; top 3 sellers by distance + category |
+| 10 | **All Sellers Page** | `/dashboard/projects/sellers` | `52764:11037` | Full list; reached via [See all Sellers] in modal |
+| 11 | **Waiting Screen** | `/onboarding/loading` | `52764:9210` | After sending to sellers; auto-redirects to dashboard |
+| 12 | **Dashboard** | `/dashboard` | — | Main app home |
+
+---
+
+## 5. Project Creation — Key Details
+
+### Required vs Optional Fields
+| Field | Required | Notes |
+|-------|----------|-------|
+| Project Name | ✅ Yes | Pre-filled in first-time flow |
+| Project Category | ✅ Yes | Pre-filled in first-time flow; search + select |
+| Postal Code | ✅ Yes | Pre-filled in first-time flow; used for seller distance calc |
+| Budget | ❌ Optional | $ currency input |
+| Delivery Date | ❌ Optional | Calendar picker |
+| Project Description | ❌ Optional | Textarea |
+| Attachments | ❌ Optional | PDF/JPG/JPEG/PNG, up to 9 files, 600×600px |
+
+### Find Sellers Button → Suggested Sellers Modal
+- Opens as a **modal overlay** on the Projects page (not a separate page)
+- Shows **top 3 suggested sellers** based on: buyer's postal code distance + project category
+- Each seller card: Company Name, City, Province, Distance (km), Website URL, Checkbox
+- **[See all Sellers]** button → navigates to full `/dashboard/projects/sellers` page
+- **[Send project to sellers]** button → closes modal, shows Waiting Screen, then Dashboard
+- Search within modal is pre-filled with the project's category
+- Users can search for different companies / change selection before sending
+
+### First-time vs Regular Project Creation
+| Scenario | Project Name | Postal Code | Category | Other Fields |
+|----------|-------------|-------------|----------|-------------|
+| First-time buyer (via walkthrough) | ✅ Pre-filled | ✅ Pre-filled | ✅ Pre-filled | Blank |
+| Returning buyer (clicks Create Project in dashboard) | Blank | Blank | Blank | Blank |
+
+---
+
+## 6. Dashboard Shell — Updated
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -137,323 +220,142 @@ All authenticated pages share the same **dashboard shell layout** (232px sidebar
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**Key Update — Sidebar Changes:**
-- Navigation is simplified to: **Dashboard, Projects, Chats** (under "Dashboard" group)
-- "Quotes" is **removed from the sidebar** — quote data is now part of the Dashboard overview
-- "General" group has **Settings** and **Help Center** only
-- The **"Upgrade Plan"** card has been **replaced** by a **"Provide your feedback / Send Feedback"** card at the bottom of the sidebar
-- **Chat badge** shows unread count (e.g., "3" in red)
-
 ---
 
-### 3.4 Dashboard Pages (Authenticated — Updated)
-
-#### Page 1: Dashboard (Overview)
-- **Route**: `/dashboard`
-- **Layout**: Full-width card container
-- **Content**: Summary widgets and activity (TBD — design in progress)
-
-#### Page 2: Projects List
-- **Route**: `/dashboard/projects`
-- **Layout**: Standard shell
-- **Content**:
-  - Page title "Projects" + subtitle "Create a new project to get started"
-  - **Multi-column project creation form** (inside the main card):
-    - Row 1: Project Name | Project Category (search) | Postal Code
-    - Row 2: Budget ($) | Delivery Date (calendar)
-    - Row 3: Project Description (large textarea)
-    - Row 4: File upload area + 6 image upload slots (3×2 grid)
-  - This is the **Create New Project** form embedded directly in the Projects page
-
-#### Page 3: Search All Sellers (Step 2 of project creation)
-- **Route**: `/dashboard/projects/new/sellers` (or sub-step)
-- **Layout**: Standard shell
-- **Content**:
-  - Title "Search all sellers"
-  - Filter bar: **[Category ▼]** + search input
-  - Filter pills: **[Distance ▼]** | **[Ascending ▼]**
-  - Result summary: "Top 3 results" | "3 Sellers Selected"
-  - Seller cards (selectable with checkbox):
-    - Company Name + City, Province + Distance (km) + website URL
-    - Selected sellers highlighted with blue border
-  - Bottom CTA: **[Send project to sellers]**
-
-#### Page 4: Chats (Narrow — compact view)
-- **Route**: `/dashboard/chats`
-- **Layout**: Standard shell, **2-column chat layout** inside main area
-  - **Left column (321px)**: Chat list panel — avatar + name + last message preview + unread badge
-  - **Right column (757px)**: Active conversation panel
-    - Conversation header (avatar + name + action icons)
-    - Message thread (buyer messages left-aligned, seller messages right-aligned with avatar)
-    - Message input bar at bottom
-
-#### Page 5: Settings
-- **Route**: `/dashboard/settings`
-- Placeholder — design TBD
-
-#### Page 6: Help Center
-- **Route**: `/dashboard/help`
-- Placeholder — design TBD
-
----
-
-### 3.5 Landing Page — Sections (Updated Copy)
-
-The landing page copy has been refined:
-
-| Section | Key Content |
-|---------|-------------|
-| **Hero Banner** | "Source Industrial Automation with Confidence" — "The vetted B2B marketplace where buyers and sellers of instrumentation and programming services connect anonymously — with trust built in." |
-| **Built for Industrial B2B** | 4 feature pillars: Vetted Buyers Only, Anonymous Communication, Trust & Authenticity, Smart Directory |
-| **How It Works** | Accordion: Apply & Get Vetted, Browse & Discover, Connect Anonymously |
-| **Dashboard Preview** | Interactive product screenshot with data widgets (stat cards, marketing report) |
-| **Testimonials** | "What our users think." — Jenny Wilson, CEO & Head of Comp Inc. |
-| **Trusted By** | Intel, Oracle, Dell, Samsung, Infosys, Capgemini logos |
-| **FAQ** | 7 accordion items |
-| **Footer** | Platform links (Directory, Get started, About, Contact) + Resources (News room, Privacy policy, Terms of service) + "All rights reserved. Nuqlei 2026. Produced by CTH Controls" |
-
----
-
-## 4. Full Page Inventory (Updated)
+## 7. Full Page Inventory (Updated)
 
 ### Public / Marketing Pages
+| # | Page | Route | Status |
+|---|------|-------|--------|
+| 1 | Home / Landing Page | `/` | ✅ Built |
 
-| # | Page | Path | Figma Node | Status |
-|---|------|------|-----------|--------|
-| 1 | **Home / Landing Page** | `/` | `52643:27243` | ✅ Built |
-| 2 | Home Page — Mobile | `/` (responsive) | `52643:28263` | ⬜ Pending |
+### Email Pages (Mockup — Opens in New Tab)
+| # | Page | Route | Status |
+|---|------|-------|--------|
+| 2 | Registration Confirmation Email | `/email/registration-confirmation` | ⬜ NEW |
+| 3 | Account Verified Email | `/email/account-verified` | ⬜ NEW |
 
 ### Authentication & Onboarding Pages
-
-| # | Page | Path | Figma Node | Status |
-|---|------|------|-----------|--------|
-| 3 | **Sign In** | `/sign-in` | `52646:30366` | ✅ Built (needs review) |
-| 4 | **Create Account — Role Select** | `/register` | `52646:29212` | ✅ Built (needs review) |
-| 5 | **Create Account — Verification** | `/register/verification` | `52669:15188` | ✅ Built (needs update) |
-| 6 | **Set Password** | `/register/set-password` | `52764:9291` | ⬜ NEW — Not built |
-| 7 | **Welcome / Project Name** | `/onboarding/welcome` | `52677:4284` | ⬜ Needs update |
-| 8 | **Waiting Screen** | `/onboarding/loading` | `52764:9210` | ⬜ NEW — Not built |
-
-> **Note**: Old onboarding pages (BusinessName, OnboardingStep1, separate Seller flow) have been replaced/consolidated. The new flow is: Register → Set Password → Verification confirmation → Welcome → Create Project → Waiting Screen.
+| # | Page | Route | Status |
+|---|------|-------|--------|
+| 4 | Sign In | `/sign-in` | ✅ Built |
+| 5 | Create Account | `/register` | ✅ Updated |
+| 6 | Verification Pending | `/register/verification` | ✅ Built (needs simulate button) |
+| 7 | Set Password | `/register/set-password` | ✅ Built |
+| 8 | Walkthrough Step 1 (Project Name) | `/onboarding/step/1` | ⬜ Update WelcomeScreen |
+| 9 | Walkthrough Step 2 (Postal Code) | `/onboarding/step/2` | ⬜ NEW |
+| 10 | Walkthrough Step 3 (Category) | `/onboarding/step/3` | ⬜ NEW |
+| 11 | Waiting Screen | `/onboarding/loading` | ✅ Built |
 
 ### Dashboard / App Pages
-
-| # | Page | Path | Figma Node | Status |
-|---|------|------|-----------|--------|
-| 9 | **Dashboard Overview** | `/dashboard` | TBD | ✅ Built (placeholder) |
-| 10 | **Projects / Create Project** | `/dashboard/projects` | `52676:5164` | ✅ Built (needs update) |
-| 11 | **Search All Sellers** | `/dashboard/projects/sellers` | `52764:11037` | ⬜ NEW — Not built |
-| 12 | **Chats / Inbox** | `/dashboard/chats` | TBD | ✅ Built |
-| 13 | **Settings** | `/dashboard/settings` | TBD | ✅ Built (placeholder) |
-| 14 | **Help Center** | `/dashboard/help` | TBD | ✅ Built (placeholder) |
-
-> **Removed from scope**: Quotes page as standalone nav item — quotes data is surfaced through Dashboard Overview widgets.
+| # | Page | Route | Status |
+|---|------|-------|--------|
+| 12 | Dashboard Home | `/dashboard` | ✅ Built |
+| 13 | Projects (Create Project form) | `/dashboard/projects` | ✅ Updated (needs modal) |
+| 14 | All Sellers Page | `/dashboard/projects/sellers` | ✅ Built |
+| 15 | Chats | `/dashboard/chats` | ✅ Built |
+| 16 | Settings | `/dashboard/settings` | ✅ Placeholder |
+| 17 | Help Center | `/dashboard/help` | ✅ Placeholder |
 
 ---
 
-## 5. Key UI Components Identified
+## 8. Key UI Components
 
-### Layout Components
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `BannerHeader` | Dark top announcement bar with badge + message | ✅ Built |
-| `SiteHeader` / `Navbar` | Sticky navigation with logo, nav links + CTA buttons (public) | ✅ Built |
-| `DashboardLayout` | 232px sidebar + top header shell | ✅ Built |
-| `Sidebar` | Grouped nav: Dashboard / General sections + Feedback card at bottom | ✅ Built (needs update) |
-| `DashboardHeader` | Top bar (search ⌘K, calendar, notifications, language, user) | ✅ Built |
+### Email Components (New)
+| Component | Description |
+|-----------|-------------|
+| `EmailLayout` | Reusable email wrapper: Nuqlei logo header, illustration, content, footer with social icons |
+| `RegistrationConfirmationEmail` | "Thank you for applying" email page |
+| `AccountVerifiedEmail` | "Congratulations! You are verified" with [Create your first project] CTA |
 
-### Auth Layout Components
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `AuthLayout` | Two-column split: dark hero (left) + white form card (right) | ✅ Built |
-| `SetPasswordForm` | Password + Retype with live validation indicators | ⬜ NEW |
-| `WelcomeScreen` | Full-screen dark with centered inline project name input | ⬜ NEW |
-| `WaitingScreen` | Full-screen dark loading state with logo | ⬜ NEW |
+### Modal Components (New)
+| Component | Description |
+|-----------|-------------|
+| `SuggestedSellersModal` | Overlay modal on Projects page: category search, 3 seller cards with checkboxes, [See all Sellers] + [Send project to sellers] |
 
-### Form Components
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `InputField` | Text input with label + helper text + validation states | ✅ Built |
-| `Checkbox` | Checkbox with label | ✅ Built |
-| `RadioGroup` | Buyer/Seller role selector (radio buttons) | ⬜ NEW |
-| `AlertBox` | Inline info/warning box (e.g., "Buyer Vetting Required") | ⬜ NEW |
-| `FileUpload` | Drag-drop upload area + image slot grid (3×2) | ⬜ NEW |
-| `DatePicker` | Calendar date input | ⬜ NEW |
-| `SearchableSelect` | Dropdown with search (project category) | ⬜ NEW |
-
-### Data Display Components
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `DataTable` | Full table with sortable columns, checkbox rows, pagination | ✅ Built |
-| `SellerCard` | Selectable seller listing (name, location, distance, URL) | ⬜ NEW |
-| `SellerSearchBar` | Category filter + search input combo | ⬜ NEW |
-| `StatCard` | Metric card with value, trend badge, mini chart | ✅ Built |
-
-### Chat Components
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `ChatList` | Scrollable list of conversations with avatar + preview + unread | ✅ Built |
-| `ChatMessage` | Individual message bubble | ✅ Built |
-| `ChatInput` | Message compose bar with send button | ✅ Built |
-
-### Feedback & Navigation Components
-| Component | Description | Status |
-|-----------|-------------|--------|
-| `StatusBadge` | Colored inline status tag (New, Pending, Declined, etc.) | ✅ Built |
-| `Avatar` | User avatar (round, multiple sizes) | ✅ Built |
-| `NuqleiLogo` | SVG logo component with color variants (default/white/black) | ✅ Built |
-| `Button` | Primary/Secondary/Danger variants with hover/focus/disabled states | ✅ Built |
+### Walkthrough Components (New/Updated)
+| Component | Description |
+|-----------|-------------|
+| `WalkthroughStep` | Reusable step wrapper: dark neon background, progress indicator, question + input |
+| `WelcomeScreen` | Step 1: project name |
+| `WalkthroughPostal` | Step 2: postal code |
+| `WalkthroughCategory` | Step 3: category search/select |
 
 ---
 
-## 6. Color Semantics Used in the App
+## 9. Technical Architecture — Routing (Updated)
 
-| Color | Semantic meaning |
-|-------|-----------------|
-| `#FF6692` (rose/pink) | Warning — indicates items needing attention |
-| `#00CEB6` (teal/success) | Success — positive states, completed items |
-| `#FFB900` (amber) | Alert — moderate priority items |
-| `#00A6F4` (skyBrand-500) | Primary brand — buttons, active states, CTAs |
-| `#0F172B` (slate-900) | Dark background (auth pages, hero panels, waiting screen) |
-| `#F8FAFC` (slate-50) | Page backgrounds |
-| `#262626` (neutral-800) | Primary text |
-| `#737373` (neutral-500) | Secondary text |
-| `#E5E5E5` (neutral-200) | Borders, dividers |
-
----
-
-## 7. Development Phases Roadmap (Updated)
-
-### Phase 1 — Landing Page ✅ Complete
-- Public landing page with all sections
-- Design token system (Tailwind CSS v4 + TypeScript tokens)
-- Vite + React + TypeScript project setup
-- `BannerHeader`, `SiteHeader`, `NuqleiLogo` components
-
-### Phase 2 — Authentication Pages ✅ Partially Complete
-**Done:**
-- Sign In page (needs design review vs Figma)
-- Create Account page (needs design review vs Figma)
-- Verification/pending page
-
-**Needs work:**
-- Set Password page (NEW — not built)
-- Welcome screen (NEW design — currently shows old onboarding)
-- Waiting Screen (NEW — not built)
-- Old onboarding pages (BusinessName, Step1, etc.) should be removed/replaced
-
-### Phase 3 — Dashboard Shell ✅ Complete
-- Sidebar with navigation
-- Dashboard header
-- Routing via React Router
-
-### Phase 4 — Dashboard Pages ✅ Partially Complete
-**Done:**
-- Dashboard Overview (placeholder)
-- Projects Page (needs redesign — should be Create Project form, not table)
-- Chats Page (built)
-- Settings / Help Center (placeholders)
-
-**Needs work:**
-- Projects page should show the full Create Project form (not a DataTable)
-- Search All Sellers page (NEW — not built)
-- Dashboard Overview with real widget content
-- Quotes has been removed as a standalone nav item
-
-### Phase 5 — Project Creation Flow ⬜ In Progress
-- Create Project form (inside dashboard Projects page)
-- Search & Select Sellers page (with filters, checkboxes, distance)
-- Send project to sellers → Waiting Screen
-
-### Phase 6 — Polish & Refinement ⬜ Pending
-- Mobile responsive views (landing page + auth)
-- Sidebar updates (remove Upgrade Plan card, add Feedback card)
-- Route cleanup (remove old onboarding routes)
-- Storybook stories for all new components
-
----
-
-## 8. Technical Architecture Notes
-
-### Routing Structure (Updated)
 ```
-/                               → LandingPage
-/sign-in                        → SignInPage
-/register                       → CreateAccount (role select + email)
-/register/set-password          → SetPasswordPage  ← NEW
-/register/verification          → VerificationPage (thank you state)
-/onboarding/welcome             → WelcomeScreen (project name)  ← REDESIGNED
-/onboarding/loading             → WaitingScreen  ← NEW
-/dashboard                      → DashboardLayout (protected)
-  /dashboard/                   → DashboardHome
-  /dashboard/projects           → ProjectsPage (Create Project form)
-  /dashboard/projects/sellers   → SearchSellersPage  ← NEW
-  /dashboard/chats              → ChatsPage
-  /dashboard/chats/:id          → ChatConversationPage
-  /dashboard/settings           → SettingsPage
-  /dashboard/help               → HelpPage
-```
+/                                → LandingPage
+  • [Create Project] CTA         → /register?from=create-project (pre-selects Buyer)
+  • [Sign In]                    → /sign-in
 
-### Removed Routes
-```
-/register/buyer                 → consolidated into /register
-/register/seller                → consolidated into /register
-/onboarding/name                → replaced by /onboarding/welcome
-/onboarding/step-1              → removed (category chips flow removed)
-/onboarding/step-2              → removed
-/onboarding/step-3              → removed
-/verify/pending                 → replaced by /register/verification
-/verify/success                 → removed (flow simplified)
-/verify/failed                  → removed (flow simplified)
-/dashboard/quotes               → removed from nav (merged into dashboard)
-```
+/register                        → CreateAccount
+  • [Apply]                      → opens /email/registration-confirmation in NEW TAB
+                                 → navigates to /register/verification
 
-### Key New Pages to Build
-```
-src/pages/
-├── auth/
-│   ├── SignIn.tsx               ✅ (needs review)
-│   ├── CreateAccount.tsx        ✅ (needs review)
-│   ├── SetPassword.tsx          ⬜ NEW
-│   └── VerificationPending.tsx  ✅ (needs update)
-├── onboarding/
-│   ├── WelcomeScreen.tsx        ⬜ NEW (replaces old BusinessName + Step1-3)
-│   └── WaitingScreen.tsx        ⬜ NEW
-└── dashboard/
-    ├── DashboardHome.tsx        ✅
-    ├── ProjectsPage.tsx         ✅ (needs redesign as Create Project form)
-    ├── SearchSellersPage.tsx    ⬜ NEW
-    ├── ChatsPage.tsx            ✅
-    ├── SettingsPage.tsx         ✅ (placeholder)
-    └── HelpPage.tsx             ✅ (placeholder)
+/register/verification           → VerificationPending
+  • [Simulate Verification]      → opens /email/account-verified in NEW TAB
 
-src/components/
-├── form/
-│   ├── RadioGroup.tsx           ⬜ NEW
-│   ├── AlertBox.tsx             ⬜ NEW
-│   ├── FileUpload.tsx           ⬜ NEW
-│   ├── DatePicker.tsx           ⬜ NEW
-│   └── SearchableSelect.tsx     ⬜ NEW
-└── project/
-    ├── SellerCard.tsx           ⬜ NEW
-    └── SellerSearchBar.tsx      ⬜ NEW
+/email/registration-confirmation → Email page #1 (mockup — opens in new tab)
+/email/account-verified          → Email page #2 (mockup — "Create your first project" → /register/set-password)
+
+/register/set-password           → SetPassword
+  • [Create Password]            → /sign-in
+
+/sign-in                         → SignIn
+  • First-time buyer             → /onboarding/step/1
+  • Returning buyer              → /dashboard
+
+/onboarding/step/1               → Walkthrough: project name
+/onboarding/step/2               → Walkthrough: postal code
+/onboarding/step/3               → Walkthrough: category
+  • All 3 steps complete         → /dashboard/projects?prefill=true
+
+/dashboard/projects              → ProjectsPage (Create Project form)
+  • If ?prefill=true             → fields pre-filled from walkthrough data
+  • [Find Sellers]               → opens SuggestedSellersModal
+    ├─ [See all Sellers]         → /dashboard/projects/sellers
+    └─ [Send project to sellers] → /onboarding/loading
+
+/onboarding/loading              → WaitingScreen (auto-redirects to /dashboard)
+/dashboard                       → DashboardHome
+/dashboard/projects/sellers      → AllSellersPage (full list)
+/dashboard/chats                 → ChatsPage
+/dashboard/settings              → SettingsPage
+/dashboard/help                  → HelpPage
 ```
 
 ---
 
-## 9. Summary of Key Changes (Latest Figma Pass)
+## 10. State Management for Walkthrough Pre-fill
 
-| Area | Previous Design | New Design |
-|------|----------------|------------|
-| Registration flow | Multi-step (role → buyer/seller details → business name → category chips → 3 verification states) | Simplified (role + email → set password → verification thank you) |
-| Password setup | Combined with registration form | **Separate "Set Password" step** with live validation |
-| Post-verification onboarding | "Business name" + "Tell us about your business" category chips | **"Welcome to Nuqlei"** — direct project name entry + Create |
-| Project creation | Separate flow (pre-dashboard) | **Inside Dashboard** — Projects page IS the Create Project form |
-| After project creation | Redirect to dashboard | **Search All Sellers** → select sellers → Send → **Waiting Screen** |
-| Dashboard sidebar | Overview, Quotes, Projects, Chats + Tools + Upgrade Plan upsell | Dashboard, Projects, Chats + Settings, Help Center + Feedback card |
-| Quotes | Standalone nav page | Removed from sidebar; data surfaces in Dashboard Overview |
-| Loading/transition state | Not designed | **Full-screen Waiting Screen** during project load |
+The walkthrough captures 3 values that are passed to the Create Project page:
+- `projectName` — from Step 1
+- `postalCode` — from Step 2
+- `projectCategory` — from Step 3
+
+**Implementation**: Use `sessionStorage` (or React Context) to persist across the walkthrough steps. On the Projects page, check for `?prefill=true` query param and read from `sessionStorage` to pre-populate the form fields.
 
 ---
 
-*This document was last updated after a full Figma canvas review of nodes `52643:22421` and `52788:33360` in March 2026.*
+## 11. Summary of Changes vs Previous Version
+
+| Area | Previous | Current |
+|------|----------|---------|
+| Landing CTA | "Create Project" → /register | "Create Project" → /register?from=create-project (pre-selects Buyer) |
+| Registration | Checkboxes, manual role select | Radio buttons; Buyer pre-selected if coming from landing CTA |
+| Apply action | Just navigates to verification page | Opens Email #1 in new tab + navigates to verification page |
+| Verification page | Static thank you message | Shows message + "Simulate 24hr verification" button that opens Email #2 in new tab |
+| Account verified | Not designed | Email #2: Congratulations + "Create your first project" → /register/set-password |
+| Set Password | Routes to /onboarding/welcome | Routes to /sign-in |
+| Post sign-in | Goes straight to dashboard | First-time: goes to 3-step walkthrough; Returning: goes to dashboard |
+| Walkthrough | Single "Welcome to Nuqlei" screen | 3 steps: project name → postal code → category → pre-filled Create Project |
+| Create Project | Standalone page, blank form | Dashboard shell; blank for returning users, pre-filled for first-time users |
+| Find Sellers | Navigates to separate SearchSellers page | Opens as MODAL on top of Projects page |
+| See all Sellers | N/A | "See all Sellers" link in modal → full AllSellersPage |
+| Emails | Not implemented | Mocked as dedicated React pages that open in new browser tabs |
+
+---
+
+*Last updated March 2026 after full UX context review from product team.*

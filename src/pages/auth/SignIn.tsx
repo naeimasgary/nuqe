@@ -1,14 +1,17 @@
 import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { InputField } from "../../components/InputField";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
 import { Button } from "../../components/Button";
 
-// Neon hero background — dark with blue/purple light rings
 const HERO_BG = "https://www.figma.com/api/mcp/asset/eacc74ef-4c2b-4fdf-a217-25439911f5ad";
 
 export function SignIn() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  // If arriving from SetPassword (?firsttime=true), route to walkthrough after sign-in
+  const isFirstTime = searchParams.get("firsttime") === "true";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +27,13 @@ export function SignIn() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigate("/dashboard");
+      if (isFirstTime) {
+        // First-time buyer → go through the walkthrough
+        navigate("/onboarding/step/1");
+      } else {
+        // Returning buyer → go straight to dashboard
+        navigate("/dashboard");
+      }
     }, 800);
   }
 
@@ -70,6 +79,19 @@ export function SignIn() {
             <p className="text-text-secondary text-sm">Welcome</p>
             <h2 className="text-text-default text-2xl font-bold">Sign in</h2>
           </div>
+
+          {/* First-time hint */}
+          {isFirstTime && (
+            <div className="flex gap-2 px-3 py-2.5 rounded-xl bg-teal-50 border border-teal-200">
+              <svg className="flex-shrink-0 mt-0.5 text-teal-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+              <p className="text-xs text-teal-700 font-medium">
+                Your account is ready! Sign in to set up your first project.
+              </p>
+            </div>
+          )}
 
           {/* Form */}
           <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>

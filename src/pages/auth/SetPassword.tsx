@@ -58,7 +58,8 @@ export function SetPassword() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigate("/register/verification");
+      // After setting password, buyer goes to sign in for the first time
+      navigate("/sign-in?firsttime=true");
     }, 800);
   }
 

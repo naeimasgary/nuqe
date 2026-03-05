@@ -1,18 +1,26 @@
-import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, FormEvent, useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { InputField } from "../../components/InputField";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
 import { Button } from "../../components/Button";
 
-// Neon hero background — dark with blue/purple light rings
 const HERO_BG = "https://www.figma.com/api/mcp/asset/541f8515-702d-4085-b807-e8eee9261fe2";
 
 export function CreateAccount() {
   const navigate = useNavigate();
-  const [role, setRole] = useState<"buyer" | "seller">("buyer");
+  const [searchParams] = useSearchParams();
+  // Pre-select Buyer when coming from the "Create Project" CTA
+  const [role, setRole] = useState<"buyer" | "seller">(
+    searchParams.get("from") === "create-project" ? "buyer" : "buyer"
+  );
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Always default to buyer (landing page is buyer-focused)
+  useEffect(() => {
+    setRole("buyer");
+  }, []);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -26,9 +34,13 @@ export function CreateAccount() {
       return;
     }
     setLoading(true);
+
+    // Open the registration confirmation email in a new tab
+    window.open("/email/registration-confirmation", "_blank");
+
     setTimeout(() => {
       setLoading(false);
-      navigate("/register/set-password");
+      navigate("/register/verification");
     }, 800);
   }
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { NuqleiLogo } from "../../../components/NuqleiLogo";
 
 function ChevronDownIcon() {
@@ -34,12 +35,19 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <button className="px-4 py-2 rounded-full bg-sky-brand-500 text-white text-sm font-semibold hover:bg-sky-brand-600 transition-colors">
+          {/* "Create Project" assumes buyer — pre-selects Buyer on registration */}
+          <Link
+            to="/register?from=create-project"
+            className="px-4 py-2 rounded-full bg-sky-brand-500 text-white text-sm font-semibold hover:bg-sky-brand-600 transition-colors"
+          >
             Create Project
-          </button>
-          <button className="px-4 py-2 rounded-full border border-neutral-300 text-neutral-800 text-sm font-semibold hover:bg-neutral-50 transition-colors">
+          </Link>
+          <Link
+            to="/sign-in"
+            className="px-4 py-2 rounded-full border border-neutral-300 text-neutral-800 text-sm font-semibold hover:bg-neutral-50 transition-colors"
+          >
             Sign in
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
