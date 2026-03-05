@@ -12,7 +12,7 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // Base path is set per environment:
 //   - Local dev: '/'
 //   - GitHub Pages: '/nuqe/' (replace with your actual repo name if different)
-const base = process.env.GITHUB_ACTIONS ? '/nuqe/' : '/';
+const base = process.env.GITHUB_ACTIONS ? '/nuqlei/' : '/';
 
 export default defineConfig({
   base,
