@@ -4,8 +4,6 @@ import { NuqleiLogo } from "../NuqleiLogo";
 
 // ── Avatar image from Figma ──────────────────────────────────────────────────
 const avatarSrc = "https://www.figma.com/api/mcp/asset/ca4bb38f-9927-47c0-8bf1-0e34f5eec9b6";
-const paypalLogo = "https://www.figma.com/api/mcp/asset/6fdfb65e-03f3-4098-a465-85e9e5e087df";
-const upgradeIcon = "https://www.figma.com/api/mcp/asset/cb2f46c7-6ceb-4aef-acac-6a2c22921654";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 function DashboardIcon({ active }: { active?: boolean }) {
@@ -15,15 +13,6 @@ function DashboardIcon({ active }: { active?: boolean }) {
       <rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" />
       <rect x="14" y="14" width="7" height="7" rx="1" />
-    </svg>
-  );
-}
-function QuotesIcon({ active }: { active?: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#00a6f4" : "currentColor"} strokeWidth="1.8">
-      <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-      <rect x="9" y="3" width="6" height="4" rx="1" />
-      <path d="M9 12h6M9 16h4" />
     </svg>
   );
 }
@@ -90,22 +79,6 @@ function ChevronDownIcon() {
     </svg>
   );
 }
-function ExternalLinkIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-  );
-}
-function PlusIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-  );
-}
 function MenuIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -117,7 +90,6 @@ function MenuIcon() {
 // ── Nav items config ──────────────────────────────────────────────────────────
 const NAV_MAIN = [
   { label: "Dashboard", to: "/dashboard", icon: DashboardIcon },
-  { label: "Quotes", to: "/dashboard/quotes", icon: QuotesIcon },
   { label: "Projects", to: "/dashboard/projects", icon: ProjectsIcon },
   { label: "Chats", to: "/dashboard/chats", icon: ChatsIcon, badge: 3 },
 ];
@@ -215,38 +187,19 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
             </ul>
           </div>
 
-          {/* Tools */}
-          <div className="px-4">
-            <p className="text-xs font-medium text-neutral-400 uppercase tracking-wider px-3 mb-2">Tools</p>
-            <NavLink
-              to="/dashboard/tools/paypal"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 transition-colors"
-            >
-              <img src={paypalLogo} alt="Paypal" className="w-5 h-5 object-contain" />
-              <span className="flex-1">Paypal</span>
-              <ExternalLinkIcon />
-            </NavLink>
-            <button className="flex items-center gap-2 px-3 py-2 mt-1 text-xs font-medium text-neutral-500 hover:text-neutral-700 transition-colors">
-              <PlusIcon />
-              Add New Tools
-            </button>
-          </div>
         </div>
 
-        {/* Upgrade card */}
+        {/* Feedback card */}
         <div className="p-4 flex-shrink-0">
-          <div className="rounded-2xl bg-gradient-to-br from-sky-brand-500 to-sky-brand-700 p-5 text-white flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <img src={upgradeIcon} alt="" className="w-6 h-6" />
-            </div>
+          <div className="rounded-2xl bg-sky-brand-50 border border-sky-brand-100 p-4 flex flex-col gap-3">
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-semibold">Upgrade plan</p>
-              <p className="text-xs text-white/80 leading-relaxed">
-                AI-powered replies, tag insight, and tools that save your time
+              <p className="text-sm font-semibold text-text-default">Provide your feedback</p>
+              <p className="text-xs text-text-secondary leading-relaxed">
+                Please let us know how we can improve.
               </p>
             </div>
-            <button className="self-start px-4 py-1.5 rounded-full bg-white text-sky-brand-600 text-xs font-semibold hover:bg-sky-brand-50 transition-colors">
-              Upgrade Now
+            <button className="self-start px-4 py-1.5 rounded-full bg-sky-brand-500 text-white text-xs font-semibold hover:bg-sky-brand-600 transition-colors">
+              Send Feedback
             </button>
           </div>
         </div>

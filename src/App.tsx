@@ -2,12 +2,13 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LandingPage } from "./pages/landing/LandingPage";
 import { SignIn } from "./pages/auth/SignIn";
 import { CreateAccount } from "./pages/auth/CreateAccount";
-import { BusinessName } from "./pages/onboarding/BusinessName";
-import { OnboardingStep1 } from "./pages/onboarding/OnboardingStep1";
-import { Verification } from "./pages/onboarding/Verification";
+import { SetPassword } from "./pages/auth/SetPassword";
+import { VerificationPending } from "./pages/auth/VerificationPending";
+import { WelcomeScreen } from "./pages/onboarding/WelcomeScreen";
+import { WaitingScreen } from "./pages/onboarding/WaitingScreen";
 import { DashboardHome } from "./pages/dashboard/DashboardHome";
-import { QuotesPage } from "./pages/dashboard/QuotesPage";
 import { ProjectsPage } from "./pages/dashboard/ProjectsPage";
+import { SearchSellersPage } from "./pages/dashboard/SearchSellersPage";
 import { ChatsPage } from "./pages/dashboard/ChatsPage";
 import { SettingsPage, HelpPage } from "./pages/dashboard/PlaceholderPage";
 
@@ -21,24 +22,30 @@ export function App() {
         {/* Auth */}
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/register" element={<CreateAccount />} />
+        <Route path="/register/set-password" element={<SetPassword />} />
+        <Route path="/register/verification" element={<VerificationPending />} />
 
         {/* Onboarding */}
-        <Route path="/onboarding/name" element={<BusinessName />} />
-        <Route path="/onboarding/step-1" element={<OnboardingStep1 />} />
-        <Route path="/onboarding/step-2" element={<Navigate to="/verify/pending" replace />} />
+        <Route path="/onboarding/welcome" element={<WelcomeScreen />} />
+        <Route path="/onboarding/loading" element={<WaitingScreen />} />
 
-        {/* Verification states */}
-        <Route path="/verify/pending" element={<Verification state="pending" />} />
-        <Route path="/verify/success" element={<Verification state="success" />} />
-        <Route path="/verify/failed" element={<Verification state="failed" />} />
+        {/* Legacy redirects — keep old URLs working */}
+        <Route path="/onboarding/name" element={<Navigate to="/onboarding/welcome" replace />} />
+        <Route path="/onboarding/step-1" element={<Navigate to="/onboarding/welcome" replace />} />
+        <Route path="/verify/pending" element={<Navigate to="/register/verification" replace />} />
+        <Route path="/verify/success" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/verify/failed" element={<Navigate to="/register" replace />} />
 
         {/* Dashboard */}
         <Route path="/dashboard" element={<DashboardHome />} />
-        <Route path="/dashboard/quotes" element={<QuotesPage />} />
         <Route path="/dashboard/projects" element={<ProjectsPage />} />
+        <Route path="/dashboard/projects/sellers" element={<SearchSellersPage />} />
         <Route path="/dashboard/chats" element={<ChatsPage />} />
         <Route path="/dashboard/settings" element={<SettingsPage />} />
         <Route path="/dashboard/help" element={<HelpPage />} />
+
+        {/* Remove quotes standalone page — redirect to dashboard */}
+        <Route path="/dashboard/quotes" element={<Navigate to="/dashboard" replace />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
