@@ -7,8 +7,9 @@ const HERO_BG = "https://www.figma.com/api/mcp/asset/541f8515-702d-4085-b807-e8e
 export function VerificationPending() {
   // Automatically open the "Account Verified" email in a new tab to simulate
   // the email that would be sent after the 18–24 hr admin review period.
+  // Use BASE_URL so the path is correct both locally (/) and on GitHub Pages (/nuqlei/).
   useEffect(() => {
-    window.open("/email/account-verified", "_blank");
+    window.open(`${import.meta.env.BASE_URL}email/account-verified`, "_blank");
   }, []);
 
   return (

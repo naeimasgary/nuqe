@@ -27,8 +27,9 @@ export function CreateAccount() {
     }
     setLoading(true);
 
-    // Open the registration confirmation email in a new tab
-    window.open("/email/registration-confirmation", "_blank");
+    // Open the registration confirmation email in a new tab.
+    // Use BASE_URL so the path is correct both locally (/) and on GitHub Pages (/nuqlei/).
+    window.open(`${import.meta.env.BASE_URL}email/registration-confirmation`, "_blank");
 
     setTimeout(() => {
       setLoading(false);
