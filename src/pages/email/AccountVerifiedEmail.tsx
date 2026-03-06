@@ -13,7 +13,7 @@ export function AccountVerifiedEmail() {
 
         {/* Illustration */}
         <div className="w-full">
-          <Illustration variant="5" alt="" className="w-full" />
+          <Illustration variant="3" alt="" className="w-full" />
         </div>
 
         {/* Content */}
