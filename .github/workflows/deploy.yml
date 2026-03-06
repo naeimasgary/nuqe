@@ -40,19 +40,21 @@ jobs:
       - name: Build web app
         run: npm run build
 
-      # Build Storybook into /storybook-static
+      # Build Storybook into /storybook-static (non-blocking — web app deploys even if Storybook fails)
       - name: Build Storybook
-        run: npm run build-storybook
+        run: npm run build-storybook || echo "Storybook build failed, continuing without it"
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
-      # Combine: web app at root, Storybook at /storybook/
+      # Combine: web app at root, Storybook at /storybook/ (if it was built)
       - name: Combine build outputs
         run: |
           mkdir -p _site
           cp -r dist/. _site/
-          mkdir -p _site/storybook
-          cp -r storybook-static/. _site/storybook/
+          if [ -d storybook-static ]; then
+            mkdir -p _site/storybook
+            cp -r storybook-static/. _site/storybook/
+          fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
