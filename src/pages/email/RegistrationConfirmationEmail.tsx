@@ -1,10 +1,6 @@
-// Illustration and social icons from Figma node 52759:5530
-const illustration = "https://www.figma.com/api/mcp/asset/8b342e67-7d28-4ff5-90df-3b41d8c9562c";
-const iconInstagram = "https://www.figma.com/api/mcp/asset/4737e166-248b-4b93-b830-0fad8054137e";
-const iconLinkedin  = "https://www.figma.com/api/mcp/asset/52499e72-5978-4eb4-ba8b-c8836cd4ed1b";
-const iconFacebook  = "https://www.figma.com/api/mcp/asset/af33e1e2-0a3d-410a-8d9e-73fa3c995bab";
-
 import { NuqleiLogo } from "../../components/NuqleiLogo";
+import { Illustration } from "../../components/Illustration";
+import { InstagramIcon, LinkedInIcon, FacebookIcon } from "../../components/SocialIcons";
 
 export function RegistrationConfirmationEmail() {
   return (
@@ -16,7 +12,7 @@ export function RegistrationConfirmationEmail() {
 
         {/* Illustration */}
         <div className="w-full">
-          <img src={illustration} alt="" className="w-full" />
+          <Illustration variant="8" alt="" className="w-full" />
         </div>
 
         {/* Content */}
@@ -53,9 +49,9 @@ export function RegistrationConfirmationEmail() {
           <div className="flex items-center justify-between">
             <NuqleiLogo size="sm" variant="default" />
             <div className="flex items-center gap-2">
-              <img src={iconInstagram} alt="Instagram" className="w-6 h-6" />
-              <img src={iconLinkedin}  alt="LinkedIn"  className="w-6 h-6" />
-              <img src={iconFacebook}  alt="Facebook"  className="w-6 h-6" />
+              <InstagramIcon />
+              <LinkedInIcon />
+              <FacebookIcon />
             </div>
           </div>
         </div>

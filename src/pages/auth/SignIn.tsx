@@ -3,8 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { InputField } from "../../components/InputField";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
 import { Button } from "../../components/Button";
-
-const HERO_BG = "https://www.figma.com/api/mcp/asset/eacc74ef-4c2b-4fdf-a217-25439911f5ad";
+import { Illustration } from "../../components/Illustration";
 
 export function SignIn() {
   const navigate = useNavigate();
@@ -41,28 +40,25 @@ export function SignIn() {
     <div className="flex min-h-screen w-full">
       {/* ── Left: dark hero ─────────────────────────────────────────────── */}
       <div className="hidden lg:flex relative flex-col w-[55%] min-h-screen overflow-hidden bg-[#0f1b2d]">
-        <img
-          src={HERO_BG}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-70"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 flex flex-col h-full px-16 py-12">
+        <div className="flex flex-col h-full px-16 py-12">
           <Link to="/">
             <NuqleiLogo size="md" variant="white" />
           </Link>
 
-          <div className="flex flex-col gap-5 mt-auto mb-16 max-w-md">
-            <h1 className="text-white text-4xl font-bold leading-tight">Start selling</h1>
+          <div className="flex flex-1 items-center justify-center py-10">
+            <Illustration variant="9" alt="" className="w-full max-w-[400px] opacity-90" />
+          </div>
+
+          <div className="flex flex-col gap-5 mb-8 max-w-md">
+            <h1 className="text-white text-4xl font-bold leading-tight">Welcome back</h1>
             <p className="text-white/60 text-[15px] leading-relaxed">
-              Buyer accounts require approval. You'll typically receive an email within 24-48hrs once your application is reviewed.
+              Sign in to manage your projects, connect with sellers, and grow your business.
             </p>
             <Link
               to="/register"
               className="self-start inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/30 text-white text-sm font-medium hover:bg-white/10 transition-colors"
             >
-              Learn More
+              Create Account
             </Link>
           </div>
         </div>

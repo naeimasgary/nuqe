@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-
-const illustrationSrc = "https://www.figma.com/api/mcp/asset/0fd598fb-de61-40d8-a1a6-b05d0628b8e4";
+import { Illustration } from "../../../components/Illustration";
 
 export function Hero() {
   return (
@@ -27,7 +26,7 @@ export function Hero() {
           </Link>
         </div>
         <div className="flex-1 flex items-center justify-center">
-          <img src={illustrationSrc} alt="Industrial automation illustration" className="w-full max-w-lg" />
+          <Illustration variant="1" alt="Industrial automation illustration" className="w-full max-w-lg" />
         </div>
       </div>
     </section>

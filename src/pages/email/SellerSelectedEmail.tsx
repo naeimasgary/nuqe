@@ -1,11 +1,7 @@
-// Illustration and social icons from Figma node 52776:30858
-const illustration = "https://www.figma.com/api/mcp/asset/57f9f8ca-6aec-4ade-9853-22e09e76c5ad";
-const iconInstagram = "https://www.figma.com/api/mcp/asset/444e1483-e0c3-4c53-a28d-fc11b3277f97";
-const iconLinkedin  = "https://www.figma.com/api/mcp/asset/d9003323-0959-41ae-a44e-d0d959b1d1f9";
-const iconFacebook  = "https://www.figma.com/api/mcp/asset/e371e250-7ff3-4ccb-9f7a-d1a86f3ca606";
-
 import { Link } from "react-router-dom";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
+import { Illustration } from "../../components/Illustration";
+import { InstagramIcon, LinkedInIcon, FacebookIcon } from "../../components/SocialIcons";
 
 export function SellerSelectedEmail() {
   return (
@@ -22,7 +18,7 @@ export function SellerSelectedEmail() {
 
         {/* Illustration */}
         <div className="w-full">
-          <img src={illustration} alt="" className="w-full" />
+          <Illustration variant="3" alt="" className="w-full" />
         </div>
 
         {/* Content */}
@@ -36,7 +32,7 @@ export function SellerSelectedEmail() {
 
           {/* CTA Button */}
           <Link
-            to="/dashboard/projects"
+            to="/dashboard/seller/projects"
             className="w-full flex items-center justify-center h-11 rounded-full bg-[#418fde] text-white text-sm font-semibold shadow-sm hover:bg-[#3a7fc4] transition-colors"
           >
             View John's proposal
@@ -58,9 +54,9 @@ export function SellerSelectedEmail() {
           <div className="flex items-center justify-between">
             <NuqleiLogo size="sm" variant="default" />
             <div className="flex items-center gap-2">
-              <img src={iconInstagram} alt="Instagram" className="w-6 h-6" />
-              <img src={iconLinkedin}  alt="LinkedIn"  className="w-6 h-6" />
-              <img src={iconFacebook}  alt="Facebook"  className="w-6 h-6" />
+              <InstagramIcon />
+              <LinkedInIcon />
+              <FacebookIcon />
             </div>
           </div>
         </div>

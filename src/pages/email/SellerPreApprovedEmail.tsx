@@ -1,11 +1,7 @@
-// Illustration and social icons from Figma node 52761:5923
-const illustration = "https://www.figma.com/api/mcp/asset/644d63e2-6dad-4cea-84ff-56a7ded7959b";
-const iconInstagram = "https://www.figma.com/api/mcp/asset/bde7e4cc-7273-49d2-9936-a50144ee12f6";
-const iconLinkedin  = "https://www.figma.com/api/mcp/asset/c2601a37-5cb9-491b-952e-27f0521b9efd";
-const iconFacebook  = "https://www.figma.com/api/mcp/asset/76f38edb-bd78-43af-a0b4-8fde9b167364";
-
 import { Link } from "react-router-dom";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
+import { Illustration } from "../../components/Illustration";
+import { InstagramIcon, LinkedInIcon, FacebookIcon } from "../../components/SocialIcons";
 
 export function SellerPreApprovedEmail() {
   return (
@@ -17,7 +13,7 @@ export function SellerPreApprovedEmail() {
 
         {/* Illustration */}
         <div className="w-full">
-          <img src={illustration} alt="" className="w-full" />
+          <Illustration variant="2" alt="" className="w-full" />
         </div>
 
         {/* Content */}
@@ -27,8 +23,8 @@ export function SellerPreApprovedEmail() {
             You are pre-approved to join the Nuqlei Network!
           </h1>
 
-          <h2 className="text-[36px] font-normal text-[#262626] leading-tight">
-            Claim your account to start creating project
+          <h2 className="text-[28px] font-normal text-[#262626] leading-tight">
+            Claim your account to start creating projects
           </h2>
 
           <div className="text-[18px] text-[#737373] leading-[24px]">
@@ -39,7 +35,7 @@ export function SellerPreApprovedEmail() {
 
           {/* Primary CTA */}
           <Link
-            to="/register/set-password"
+            to="/seller/set-password"
             className="w-full flex items-center justify-center h-11 rounded-full bg-[#418fde] text-white text-sm font-semibold shadow-sm hover:bg-[#3a7fc4] transition-colors"
           >
             Claim your account
@@ -69,9 +65,9 @@ export function SellerPreApprovedEmail() {
           <div className="flex items-center justify-between">
             <NuqleiLogo size="sm" variant="default" />
             <div className="flex items-center gap-2">
-              <img src={iconInstagram} alt="Instagram" className="w-6 h-6" />
-              <img src={iconLinkedin}  alt="LinkedIn"  className="w-6 h-6" />
-              <img src={iconFacebook}  alt="Facebook"  className="w-6 h-6" />
+              <InstagramIcon />
+              <LinkedInIcon />
+              <FacebookIcon />
             </div>
           </div>
         </div>

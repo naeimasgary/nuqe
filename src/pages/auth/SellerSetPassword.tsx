@@ -2,9 +2,7 @@ import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
 import { Button } from "../../components/Button";
-
-// Dark hero background from the Seller Set Password Figma screen (52778:31036)
-const HERO_BG = "https://www.figma.com/api/mcp/asset/541f8515-702d-4085-b807-e8eee9261fe2";
+import { Illustration } from "../../components/Illustration";
 
 function EyeOffIcon() {
   return (
@@ -65,22 +63,21 @@ export function SellerSetPassword() {
   return (
     <div className="flex min-h-screen w-full">
       {/* ── Left: dark hero ─────────────────────────────────────────────── */}
-      <div className="hidden lg:flex relative flex-col w-[55%] min-h-screen overflow-hidden bg-[#0f1b2d]">
-        <img
-          src={HERO_BG}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-70"
-          aria-hidden="true"
-        />
-        <div className="relative z-10 flex flex-col h-full px-16 py-12">
+      <div className="hidden lg:flex flex-col w-[55%] min-h-screen overflow-hidden bg-[#0f1b2d]">
+        <div className="flex flex-col h-full px-16 py-12">
           <Link to="/">
             <NuqleiLogo size="md" variant="white" />
           </Link>
-          <div className="flex flex-col gap-5 mt-auto mb-16 max-w-md">
+          <div className="flex flex-1 items-center justify-center py-10">
+            <Illustration variant="4" alt="" className="w-full max-w-[400px] opacity-90" />
+          </div>
+          <div className="flex flex-col gap-5 mb-8 max-w-md">
             <h1 className="text-white text-4xl font-bold leading-tight">
               Welcome, please set up your password to view the project.
             </h1>
-            <p className="text-white/60 text-[15px] leading-relaxed">Text text text</p>
+            <p className="text-white/60 text-[15px] leading-relaxed">
+              You're almost there — set your password to get started as a seller on Nuqlei.
+            </p>
           </div>
         </div>
       </div>

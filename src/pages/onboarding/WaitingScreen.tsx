@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NuqleiLogo } from "../../components/NuqleiLogo";
-
-const HERO_BG = "https://www.figma.com/api/mcp/asset/541f8515-702d-4085-b807-e8eee9261fe2";
+import { Illustration } from "../../components/Illustration";
 
 export function WaitingScreen() {
   const navigate = useNavigate();
@@ -17,13 +16,9 @@ export function WaitingScreen() {
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#0f1b2d]">
-      {/* Background */}
-      <img
-        src={HERO_BG}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 flex items-end justify-end p-8 pointer-events-none opacity-10" aria-hidden="true">
+        <Illustration variant="3" alt="" className="w-[500px] max-w-[60vw]" />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center">
