@@ -1,22 +1,159 @@
 import { useState } from "react";
 
-const cardWarning = "https://www.figma.com/api/mcp/asset/aec20afc-30b0-44c8-985d-578eea540d45";
-const cardSuccess = "https://www.figma.com/api/mcp/asset/6611bedb-aa3e-480b-9c45-7b8e38bc135b";
-const chartSvg = "https://www.figma.com/api/mcp/asset/0926d88e-4494-4d9a-ab73-1840e7df4180";
-const chartDonut = "https://www.figma.com/api/mcp/asset/ae504ba0-c2d7-4351-9613-46382e04da7e";
-const iconRocket = "https://www.figma.com/api/mcp/asset/ca876b58-6657-4927-baad-4987d167cf4d";
-const iconArrow = "https://www.figma.com/api/mcp/asset/bbcc08a0-6352-4848-9003-3a139360c7fb";
-const iconSearch = "https://www.figma.com/api/mcp/asset/192410d6-d4f9-45c5-aa24-6d4cc5fecd34";
-const iconPie = "https://www.figma.com/api/mcp/asset/12000136-bc85-4209-b580-2fe8ee98071b";
-const iconCursor = "https://www.figma.com/api/mcp/asset/260417a5-54ee-4a09-b82e-b23fe55e4c6d";
-const userIcon1 = "https://www.figma.com/api/mcp/asset/f3641f1a-1e86-45c0-a8b5-9a1068429198";
-const banknoteIcon = "https://www.figma.com/api/mcp/asset/4cdbec07-0be8-409a-b6d3-a744f5e41dc5";
-
 const steps = [
   { id: "apply", title: "Apply & Get Vetted", description: "Submit your application. Our team verifies your business credentials." },
   { id: "browse", title: "Browse & Discover", description: null },
   { id: "connect", title: "Connect Anonymously", description: null },
 ];
+
+function DotsMenuIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="5" r="1.5" fill="#a3a3a3" />
+      <circle cx="12" cy="12" r="1.5" fill="#a3a3a3" />
+      <circle cx="12" cy="19" r="1.5" fill="#a3a3a3" />
+    </svg>
+  );
+}
+
+function UserAvatarIcon({ color }: { color: string }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="4" fill={color} opacity="0.9" />
+      <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" fill={color} opacity="0.9" />
+    </svg>
+  );
+}
+
+function BanknoteIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M6 12h.01M18 12h.01" />
+    </svg>
+  );
+}
+
+function MiniBarChart({ color }: { color: string }) {
+  const bars = [14, 10, 16, 12, 18];
+  const maxH = 20;
+  return (
+    <div className="flex items-end gap-0.5" style={{ height: `${maxH}px` }}>
+      {bars.map((h, i) => (
+        <div
+          key={i}
+          className="w-2 rounded-sm"
+          style={{
+            height: `${h}px`,
+            background: i % 2 === 0 ? "#e5e7eb" : color,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function TrendLineChart() {
+  return (
+    <svg width="80" height="36" viewBox="0 0 80 36" fill="none">
+      <polyline
+        points="0,28 16,22 32,26 48,10 64,16 80,6"
+        stroke="#00ceb6"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <polyline
+        points="0,28 16,22 32,26 48,10 64,16 80,6 80,36 0,36"
+        fill="#00ceb6"
+        opacity="0.08"
+      />
+      <circle cx="48" cy="10" r="3" fill="#00ceb6" />
+    </svg>
+  );
+}
+
+function DonutChart() {
+  const r = 36;
+  const cx = 44;
+  const cy = 44;
+  const circumference = 2 * Math.PI * r;
+  const segments = [
+    { pct: 0.35, color: "#ff6692" },
+    { pct: 0.30, color: "#fbbf24" },
+    { pct: 0.35, color: "#00ceb6" },
+  ];
+  let offset = 0;
+  return (
+    <svg width="88" height="88" viewBox="0 0 88 88">
+      {segments.map((seg, i) => {
+        const dash = seg.pct * circumference;
+        const gap = circumference - dash;
+        const rotation = offset * 360 - 90;
+        offset += seg.pct;
+        return (
+          <circle
+            key={i}
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke={seg.color}
+            strokeWidth="10"
+            strokeDasharray={`${dash} ${gap}`}
+            strokeLinecap="butt"
+            transform={`rotate(${rotation} ${cx} ${cy})`}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="2" strokeLinecap="round">
+      <circle cx="11" cy="11" r="7" />
+      <line x1="16.5" y1="16.5" x2="22" y2="22" />
+    </svg>
+  );
+}
+
+function PieChartIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+      <path d="M22 12A10 10 0 0 0 12 2v10z" />
+    </svg>
+  );
+}
+
+function CursorIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 3l14 9-7 1-4 7-3-17z" />
+    </svg>
+  );
+}
+
+function RocketIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l7-7a3.5 3.5 0 0 0-10-10l-7 7" />
+      <path d="M12 2l3.5 3.5-7 7L5 9l7-7z" />
+    </svg>
+  );
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  );
+}
 
 export function HowItWorks() {
   const [activeTab, setActiveTab] = useState("Project Dashboard");
@@ -25,6 +162,7 @@ export function HowItWorks() {
   return (
     <section className="bg-white py-20 px-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
+
         {/* Tab switcher */}
         <div className="flex items-center gap-1 border-b border-neutral-200">
           {tabs.map((tab, i) => (
@@ -45,30 +183,29 @@ export function HowItWorks() {
 
         {/* Content */}
         <div className="flex flex-col lg:flex-row gap-10 items-start">
+
           {/* Dashboard preview */}
           <div className="flex flex-col gap-4 flex-1">
+
+            {/* Top two stat cards */}
             <div className="flex gap-4">
+
               {/* Warning card */}
               <div className="flex-1 bg-white rounded-2xl border border-neutral-200 p-4 flex flex-col gap-3 shadow-xs">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#ff6692]">
-                    <img src={userIcon1} alt="" className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#ff6692] flex-shrink-0">
+                    <UserAvatarIcon color="white" />
                   </div>
-                  <span className="text-xs text-neutral-500 flex-1">Pink indicates warning</span>
-                  <img src={cardWarning} alt="" className="w-4 h-4" />
+                  <span className="text-xs text-neutral-500 flex-1 leading-tight">Pink indicates warning</span>
+                  <DotsMenuIcon />
                 </div>
-                <div className="flex items-end justify-between">
-                  <div>
+                <div className="flex items-end justify-between gap-2">
+                  <div className="flex flex-col gap-1 min-w-0">
                     <span className="text-xl font-bold text-text-default">4,562</span>
-                    <span className="ml-2 text-xs bg-rose-100 text-rose-600 px-1.5 py-0.5 rounded-full">+23% last month</span>
+                    <span className="text-xs bg-rose-100 text-rose-600 px-1.5 py-0.5 rounded-full whitespace-nowrap self-start">+23% last month</span>
                   </div>
-                  <div className="flex items-end gap-0.5 h-8">
-                    {[23, 19, 25, 21, 26].map((h, idx) => (
-                      <div key={idx} className="flex flex-col gap-0.5 items-center">
-                        <div className="w-2 rounded-sm bg-neutral-200" style={{ height: `${h * 0.6}px` }} />
-                        <div className="w-2 rounded-sm bg-[#ff6692]" style={{ height: `${(h + 3) * 0.6}px` }} />
-                      </div>
-                    ))}
+                  <div className="flex-shrink-0">
+                    <MiniBarChart color="#ff6692" />
                   </div>
                 </div>
               </div>
@@ -76,38 +213,41 @@ export function HowItWorks() {
               {/* Success card */}
               <div className="flex-1 bg-white rounded-2xl border border-neutral-200 p-4 flex flex-col gap-3 shadow-xs">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#00ceb6]">
-                    <img src={banknoteIcon} alt="" className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#00ceb6] flex-shrink-0">
+                    <BanknoteIcon />
                   </div>
-                  <span className="text-xs text-neutral-500 flex-1">Green indicates success</span>
-                  <img src={cardSuccess} alt="" className="w-4 h-4" />
+                  <span className="text-xs text-neutral-500 flex-1 leading-tight">Green indicates success</span>
+                  <DotsMenuIcon />
                 </div>
-                <div className="flex items-end justify-between">
-                  <div>
+                <div className="flex items-end justify-between gap-2">
+                  <div className="flex flex-col gap-1 min-w-0">
                     <span className="text-xl font-bold text-text-default">$2,529</span>
-                    <span className="ml-2 text-xs bg-teal-100 text-teal-600 px-1.5 py-0.5 rounded-full">+42% last month</span>
+                    <span className="text-xs bg-teal-100 text-teal-600 px-1.5 py-0.5 rounded-full whitespace-nowrap self-start">+42% last month</span>
                   </div>
-                  <img src={chartSvg} alt="" className="h-8" />
+                  <div className="flex-shrink-0">
+                    <TrendLineChart />
+                  </div>
                 </div>
               </div>
+
             </div>
 
             {/* Marketing Report */}
             <div className="bg-white rounded-2xl border border-neutral-200 p-5 shadow-xs">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm font-semibold text-text-default">Marketing Report</span>
-                <img src={cardWarning} alt="" className="w-4 h-4" />
+                <DotsMenuIcon />
               </div>
               <div className="flex items-center gap-6">
                 <div className="flex flex-col gap-3 flex-1">
                   {[
-                    { icon: iconSearch, label: "Search Volume", value: "+2.9k" },
-                    { icon: iconPie, label: "Return Ratio", value: "1.22" },
-                    { icon: iconCursor, label: "Clicks / search", value: "0.83" },
+                    { icon: <SearchIcon />, label: "Search Volume", value: "+2.9k" },
+                    { icon: <PieChartIcon />, label: "Return Ratio", value: "1.22" },
+                    { icon: <CursorIcon />, label: "Clicks / search", value: "0.83" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-3">
                       <div className="w-7 h-7 rounded-lg bg-neutral-100 flex items-center justify-center flex-shrink-0">
-                        <img src={item.icon} alt="" className="w-4 h-4" />
+                        {item.icon}
                       </div>
                       <div>
                         <p className="text-xs text-text-secondary">{item.label}</p>
@@ -116,19 +256,22 @@ export function HowItWorks() {
                     </div>
                   ))}
                 </div>
-                <div className="relative flex-shrink-0">
-                  <img src={chartDonut} alt="chart" className="w-20 h-20" />
+                <div className="relative flex-shrink-0 w-[88px] h-[88px] flex items-center justify-center">
+                  <DonutChart />
                   <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-text-default">275</span>
                 </div>
               </div>
               <div className="mt-4 flex items-center gap-3 bg-slate-50 rounded-xl p-3">
-                <img src={iconRocket} alt="" className="w-5 h-5 flex-shrink-0" />
+                <div className="flex-shrink-0">
+                  <RocketIcon />
+                </div>
                 <span className="text-xs text-text-secondary flex-1">Learn how to manage all aspects of your startup.</span>
                 <button className="flex-shrink-0 w-6 h-6 rounded-full bg-sky-brand-500 flex items-center justify-center">
-                  <img src={iconArrow} alt="go" className="w-3 h-3" />
+                  <ArrowRightIcon />
                 </button>
               </div>
             </div>
+
           </div>
 
           {/* Accordion */}
@@ -156,6 +299,7 @@ export function HowItWorks() {
               Apply Now
             </button>
           </div>
+
         </div>
       </div>
     </section>

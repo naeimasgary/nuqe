@@ -69,30 +69,17 @@ export function Features() {
           </button>
         </div>
 
-        {/* Feature grid */}
-        <div className="flex flex-col sm:flex-row gap-6 flex-1">
-          <div className="flex flex-col gap-6 flex-1">
-            {features.slice(0, 2).map((f) => (
-              <div key={f.title} className="flex flex-col gap-3">
-                <span className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${f.iconBg}`}>
-                  {f.icon}
-                </span>
-                <h3 className="text-base font-semibold text-text-default">{f.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{f.description}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col gap-6 flex-1 sm:mt-10">
-            {features.slice(2, 4).map((f) => (
-              <div key={f.title} className="flex flex-col gap-3">
-                <span className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${f.iconBg}`}>
-                  {f.icon}
-                </span>
-                <h3 className="text-base font-semibold text-text-default">{f.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{f.description}</p>
-              </div>
-            ))}
-          </div>
+        {/* Feature grid — 2 columns, items top-aligned in each cell */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 flex-1">
+          {features.map((f) => (
+            <div key={f.title} className="flex flex-col gap-3">
+              <span className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${f.iconBg}`}>
+                {f.icon}
+              </span>
+              <h3 className="text-base font-semibold text-text-default">{f.title}</h3>
+              <p className="text-sm text-text-secondary leading-relaxed">{f.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
