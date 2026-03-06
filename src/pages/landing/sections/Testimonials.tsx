@@ -1,20 +1,96 @@
-const avatarJenny = "https://www.figma.com/api/mcp/asset/5646908c-494b-4e5e-99ae-31934850e51e";
-const quoteIcon = "https://www.figma.com/api/mcp/asset/7add89b9-8d47-4b85-a56c-8cb3a9ea5e08";
-const arrowLeft = "https://www.figma.com/api/mcp/asset/babc53d2-5832-4c22-9354-73ddfc3faa46";
-const arrowRight = "https://www.figma.com/api/mcp/asset/46288e83-5718-4e80-912e-e21f0a7a5629";
-const logoIntel = "https://www.figma.com/api/mcp/asset/937514c4-5bb0-44ae-878e-5d8570f75107";
-const logoOracle = "https://www.figma.com/api/mcp/asset/cc16b87b-e05f-4c57-a1fa-943def3dd08d";
-const logoDell = "https://www.figma.com/api/mcp/asset/366a5931-e663-4a8f-b568-752d86989730";
-const logoSamsung = "https://www.figma.com/api/mcp/asset/a877ffe4-5f45-41c8-bdcc-403cda37133b";
-const logoInfosys = "https://www.figma.com/api/mcp/asset/5ae8201a-c52c-4f71-83f9-1c78312e5244";
-const logoCapgemini = "https://www.figma.com/api/mcp/asset/a30c36e3-d726-403d-9a06-ad5057a47840";
+function QuoteIcon() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <path d="M8 28C8 22.477 12.477 18 18 18V14C10.268 14 4 20.268 4 28V36H16V28H8Z" fill="#e5e7eb" />
+      <path d="M26 28C26 22.477 30.477 18 36 18V14C28.268 14 22 20.268 22 28V36H34V28H26Z" fill="#e5e7eb" />
+    </svg>
+  );
+}
+
+function ChevronLeftIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  );
+}
+
+function ChevronRightIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  );
+}
+
+function AvatarPlaceholder() {
+  return (
+    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-brand-300 to-sky-brand-500 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+      JW
+    </div>
+  );
+}
+
+/* ── Brand logos as inline SVG text wordmarks ─────────────────────── */
+
+function IntelLogo() {
+  return (
+    <svg viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-auto">
+      <text x="0" y="22" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="700" fontStyle="italic" fill="#b0b0b0" letterSpacing="-1">intel</text>
+      <circle cx="72" cy="6" r="4" fill="#b0b0b0" />
+    </svg>
+  );
+}
+
+function OracleLogo() {
+  return (
+    <svg viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-auto">
+      <text x="0" y="21" fontFamily="Arial, sans-serif" fontSize="20" fontWeight="400" fill="#b0b0b0" letterSpacing="2">ORACLE</text>
+    </svg>
+  );
+}
+
+function DellLogo() {
+  return (
+    <svg viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-auto">
+      <text x="2" y="22" fontFamily="Arial, sans-serif" fontSize="26" fontWeight="700" fill="#b0b0b0" letterSpacing="1">Dell</text>
+    </svg>
+  );
+}
+
+function SamsungLogo() {
+  return (
+    <svg viewBox="0 0 130 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-auto">
+      <text x="0" y="21" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="600" fill="#b0b0b0" letterSpacing="3">SAMSUNG</text>
+    </svg>
+  );
+}
+
+function InfosysLogo() {
+  return (
+    <svg viewBox="0 0 105 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-auto">
+      <text x="0" y="21" fontFamily="Arial, sans-serif" fontSize="20" fontWeight="400" fill="#b0b0b0" letterSpacing="1">Infosys</text>
+    </svg>
+  );
+}
+
+function CapgeminiLogo() {
+  return (
+    <svg viewBox="0 0 140 28" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-auto">
+      <text x="0" y="21" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="400" fill="#b0b0b0" letterSpacing="0.5">Capgemini</text>
+      <circle cx="132" cy="18" r="5" fill="#b0b0b0" opacity="0.6" />
+    </svg>
+  );
+}
 
 export function Testimonials() {
   return (
     <section className="bg-slate-50 py-20 px-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
+
         {/* Testimonial row */}
         <div className="flex flex-col lg:flex-row gap-12 items-start">
+
           {/* Left: heading + nav */}
           <div className="flex flex-col gap-8 lg:w-72 flex-shrink-0">
             <div className="flex flex-col gap-3">
@@ -22,12 +98,18 @@ export function Testimonials() {
               <p className="text-text-secondary text-base">Pellentesque varius semper odio non pretium.</p>
             </div>
             <div className="flex items-center gap-3">
-              <button className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-50 transition-colors" aria-label="Previous">
-                <img src={arrowLeft} alt="" className="w-4 h-4" />
+              <button
+                className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 hover:bg-neutral-50 transition-colors"
+                aria-label="Previous"
+              >
+                <ChevronLeftIcon />
               </button>
               <span className="text-sm text-text-secondary">1 / 5</span>
-              <button className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-50 transition-colors" aria-label="Next">
-                <img src={arrowRight} alt="" className="w-4 h-4" />
+              <button
+                className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 hover:bg-neutral-50 transition-colors"
+                aria-label="Next"
+              >
+                <ChevronRightIcon />
               </button>
             </div>
           </div>
@@ -39,15 +121,16 @@ export function Testimonials() {
             </p>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img src={avatarJenny} alt="Jenny Wilson" className="w-10 h-10 rounded-full object-cover" />
+                <AvatarPlaceholder />
                 <div>
                   <p className="text-sm font-semibold text-text-default">Jenny Wilson</p>
                   <p className="text-xs text-text-secondary">CEO &amp; Head of Comp Inc.</p>
                 </div>
               </div>
-              <img src={quoteIcon} alt="" className="w-10 h-10 opacity-60" />
+              <QuoteIcon />
             </div>
           </div>
+
         </div>
 
         <hr className="border-neutral-200" />
@@ -60,13 +143,13 @@ export function Testimonials() {
               Our robust analytics offer rich insights into the information buyers want, informing where teams
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
-            <img src={logoIntel} alt="Intel" style={{ height: "32px" }} />
-            <img src={logoOracle} alt="Oracle" style={{ height: "18px" }} />
-            <img src={logoDell} alt="Dell" style={{ height: "36px" }} />
-            <img src={logoSamsung} alt="Samsung" style={{ height: "20px" }} />
-            <img src={logoInfosys} alt="Infosys" style={{ height: "32px" }} />
-            <img src={logoCapgemini} alt="Capgemini" style={{ height: "36px" }} />
+          <div className="flex flex-wrap items-center justify-center gap-10">
+            <IntelLogo />
+            <OracleLogo />
+            <DellLogo />
+            <SamsungLogo />
+            <InfosysLogo />
+            <CapgeminiLogo />
           </div>
         </div>
 
